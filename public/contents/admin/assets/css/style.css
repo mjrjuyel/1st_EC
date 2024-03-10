@@ -1,0 +1,70 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.form_label{
+    color: #494f9d;
+    font-size: 1.15rem;
+    font-weight: 600;
+    
+}
+.important{
+    color: #ff8880;
+    margin-left: 5px;
+}
+.modal_form_title{
+    font-size: 1.25rem;
+    color: #046f51;
+}
+/* action  */
+.dropdown-menu{
+    min-width: 5.4rem;
+}
+.dropdown-item{
+    font-size: 18px;
+}
+.dropdown-item i{
+    margin-right: 8px;
+}
+.dropdown_item:last-child{
+    color: #ff8880;
+}
+/* validate MESSAGE */
+.invalid_msg{
+    color: #ff8880;
+    font-style: italic;
+    margin-left: 5px;
+}
+/* view Page */
+.card_header{
+    color: #fff;
+}
+.header_icon{
+    padding-right: 8px;
+}
+.btn_header{
+    font-size: 1rem;
+    margin-top: 7px;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+.btn_icon{
+    padding-left: 5px;
+}
+.view_table tr td:nth-child(1){
+    width: 20%;
+    color: #313a46;
+    text-align: end;
+}
+.view_table tr td:nth-child(2){
+    width: 5%;
+    color: #494f9d;
+    text-align: end;
+}
+.view_table tr td:nth-child(3){
+    width: 75%;
+    color: #313a46;
+    text-align: initial;
+}
