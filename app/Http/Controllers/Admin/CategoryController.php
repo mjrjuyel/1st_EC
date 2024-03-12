@@ -13,9 +13,8 @@ use Session;
 class CategoryController extends Controller
 {
     public function index(){
-        $cat = Category::where('cat_status','1')->latest('id')->get();
+        $cat = Category::with('subcategory')->where('cat_status','1')->latest('id')->get();
         return view('admin.category.all',compact('cat'));
-        
     }
     public function store(Request $request){
         // return $request->all();
@@ -99,9 +98,24 @@ class CategoryController extends Controller
         }
     }
     public function deleteI($id){
-         category::destroy($id);
-            Session::flash('Success','Deleted This Data');
+        $del= category::find($id);
+        $path=public_path().'/uploads/admin/category/';
+        if($del->cat_pic != '' && $del->cat_pic != null){
+            $file =$path.$del->cat_pic;
+            unlink($file);
+        }
+        $del->delete();
+
+        if($del){
+            $allRows = Category::orderBy('id', 'asc')->get();
+        // Update the auto-incrementing column values
+            foreach ($allRows as $index => $row) {
+            $row->id = $index + 1;
+            $row->save();
+        }
+            Session::flash('success','Deleted This Data');
             return redirect()->back();
+        }
       
     }
 }

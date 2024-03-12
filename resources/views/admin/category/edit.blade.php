@@ -73,8 +73,8 @@
                                         </script>
                                     @endif
                                     @csrf
-                                    <input type="text" name="id" value="{{$edit->id}}">
-                                    <input type="text" name="slug" value="{{$edit->cat_slug}}">
+                                    <input type="hidden" name="id" value="{{$edit->id}}">
+                                    <input type="hidden" name="slug" value="{{$edit->cat_slug}}">
                                     <div class="row">
                                         <div class="col-md-6 offset-md-2 mb-3">
                                             <label for="username" class="form-label">Product Category Title<span

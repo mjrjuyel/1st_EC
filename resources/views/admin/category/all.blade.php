@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('datatable_css')
-<link href="{{ asset('contents/admin') }}/assets/css/dataTables.dataTables.min.css" rel="stylesheet" />
+<link href="{{ asset('contents/admin') }}/assets/css/dataTables.dataTables.min.css"
+    rel="stylesheet" />
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -21,7 +22,30 @@
         </div>
     </div>
     <!-- end page title -->
+    @if(Session::has('success'))
+        <script type="text/javascript">
+            swal({
+                title: "Success!",
+                text: "{{ Session::get('success') }}",
+                icon: "success",
+                button: "OK",
+                timer: 5000,
+            });
 
+        </script>
+    @endif
+    @if(Session::has('error'))
+        <script type="text/javascript">
+            swal({
+                title: "Opps!",
+                text: "{{ Session::get('error') }}",
+                icon: "error",
+                button: "OK",
+                timer: 5000,
+            });
+
+        </script>
+    @endif
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -53,6 +77,7 @@
                                         </div>
                                     </th>
                                     <th>Category</th>
+                                    <th>Child Category</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -69,6 +94,13 @@
                                             {{ $data->cat_title }}
                                         </td>
                                         <td>
+                                            @foreach($data->subcategory as $subcat)
+                                                <button
+                                                    class="btn bg-primary text-dark">{{ optional($subcat)->subcat_title }}</button>
+                                            @endforeach
+
+                                        </td>
+                                        <td>
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop1" type="button"
                                                     class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
@@ -83,16 +115,19 @@
                                                             href="{{ url('dashboard/category/edit/'.$data->cat_slug) }}"><i
                                                                 class="uil-edit"></i>Edit</a></li>
                                                     <li>
-                                                        <form action="{{url('/dashboard/category/delete/'.$data->id)}}" method="post">
+                                                        <form
+                                                            action="{{ url('/dashboard/category/delete/'.$data->id) }}"
+                                                            method="post">
                                                             @csrf
                                                             @method('delete')
-                                                            <button class="dropdown-item  text-danger" type="sumbit"><i class="uil-trash-alt"></i>Delete</button>
+                                                            <button class="dropdown-item  text-danger" type="sumbit"><i
+                                                                    class="uil-trash-alt"></i>Delete</button>
                                                         </form>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </td>
-                                        
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -183,7 +218,7 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <form method="post" action="{{ route ('dashboard.category.softdel') }}">
-            @csrf
+@csrf
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-warning">
                     <h4 class="modal-title" id="primary-header-modalLabel">Product Category</h4>

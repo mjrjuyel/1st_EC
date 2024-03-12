@@ -55,6 +55,15 @@
                                     <td>{{ $view->cat_title }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Category pic</td>
+                                    <td>:</td>
+                                    <td>
+                                           @if($view->cat_pic != '')
+                                            <img src="{{asset('uploads/admin/category/'.$view->cat_pic)}}" class="img-fluid" alt="" style="width:50%; object-fit:cover;">
+                                            @endif
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Category Creator</td>
                                     <td>:</td>
                                     <td>{{ $view->creator->name }}</td>

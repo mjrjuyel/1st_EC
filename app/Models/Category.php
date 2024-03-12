@@ -21,5 +21,9 @@ class Category extends Model
     public function editor(){
         return $this->belongsTo(User::class,'cat_editor');
     }
+    public function subcategory(){
+        return $this->hasMany(SubCategory::class,'cat_id','id');
+    }
+    
     use HasFactory;
 }
