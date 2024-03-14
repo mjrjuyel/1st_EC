@@ -107,6 +107,9 @@
                                 <li>
                                     <a href="{{route('dashboard.subcategory')}}">Category</a>
                                 </li>
+                                <li>
+                                    <a href="{{route('dashboard.childcategory')}}">Child Category</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -410,7 +413,7 @@
                                         alt="user-image" class="rounded-circle">
                                 </span>
                                 <span>
-                                    <span class="account-user-name">Dominic Keller</span>
+                                    <span class="account-user-name">{{Auth::user()->name}}</span>
                                     <span class="account-position">Founder</span>
                                 </span>
                             </a>

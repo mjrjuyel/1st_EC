@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\ChildCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,15 @@ Route::middleware(['auth','is_admin'])->group(function(){
     Route::post('/dashboard/subcategory/update',[SubCategoryController::class, 'update'])->name('dashboard.subcategory.update');
     Route::delete('/dashboard/subcategory/delete/{id}',[SubCategoryController::class, 'deleteI'])->name('dashboard.subcategory.delete');
     Route::delete('/dashboard/subcategory/softdel',[SubCategoryController::class, 'softdel'])->name('dashboard.subcategory.softdel');
+
+    // Child Category Part =============
+    Route::get('/dashboard/childcategory',[ChildCategoryController::class, 'index'])->name('dashboard.childcategory');
+    Route::post('/dashboard/childcategory/insert',[ChildCategoryController::class, 'store'])->name('dashboard.childcategory.store');
+    Route::get('/dashboard/childcategory/view/{slug}',[ChildCategoryController::class, 'view'])->name('dashboard.childcategory.view');
+    Route::get('/dashboard/childcategory/edit/{slug}',[ChildCategoryController::class, 'edit'])->name('dashboard.childcategory.edit');
+    Route::post('/dashboard/childcategory/update',[ChildCategoryController::class, 'update'])->name('dashboard.childcategory.update');
+    Route::delete('/dashboard/childcategory/delete/{id}',[ChildCategoryController::class, 'deleteI'])->name('dashboard.childcategory.delete');
+    Route::delete('/dashboard/childcategory/softdel',[ChildCategoryController::class, 'softdel'])->name('dashboard.childcategory.softdel');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

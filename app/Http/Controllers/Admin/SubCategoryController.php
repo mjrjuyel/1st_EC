@@ -80,7 +80,6 @@ class SubcategoryController extends Controller
 
         if($del){
             $alldata = SubCategory::orderBy('id','ASC')->get();
-
             foreach($alldata as $index => $value){
                 $value->id = $index++;
                 $value->save();
