@@ -7,7 +7,6 @@
     color: #494f9d;
     font-size: 1.15rem;
     font-weight: 600;
-    
 }
 .important{
     color: #ff8880;
@@ -36,6 +35,8 @@
     font-style: italic;
     margin-left: 5px;
 }
+/* index page data */
+
 /* view Page */
 .card_header{
     color: #fff;

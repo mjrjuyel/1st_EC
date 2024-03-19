@@ -24,6 +24,10 @@ class Category extends Model
     public function subcategory(){
         return $this->hasMany(SubCategory::class,'cat_id','id');
     }
+
+    public function childcategory(){
+        return $this->hasMany(ChildCategory::class,'cat_id','id');
+    }
     
     use HasFactory;
 }

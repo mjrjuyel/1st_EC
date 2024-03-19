@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use Auth;
 use Carbon\Carbon;
 // use Intervention\Image\ImageManagerStatic as Image;
@@ -13,7 +15,7 @@ use Session;
 class CategoryController extends Controller
 {
     public function index(){
-        $cat = Category::with('subcategory')->where('cat_status','1')->latest('id')->get();
+        $cat = Category::with(['subcategory','childcategory'])->where('cat_status','1')->latest('id')->get();
         return view('admin.category.all',compact('cat'));
     }
     public function store(Request $request){
@@ -99,6 +101,7 @@ class CategoryController extends Controller
     }
     public function deleteI($id){
         $del= category::find($id);
+        // return $allSub;
         $path=public_path().'/uploads/admin/category/';
         if($del->cat_pic != '' && $del->cat_pic != null){
             $file =$path.$del->cat_pic;
@@ -107,12 +110,21 @@ class CategoryController extends Controller
         $del->delete();
 
         if($del){
-            $allRows = Category::orderBy('id', 'asc')->get();
-        // Update the auto-incrementing column values
-            foreach ($allRows as $index => $row) {
-            $row->id = $index + 1;
-            $row->save();
-        }
+            // Ro₩ Gap Reduce
+        //     $allRows = Category::with(['subcategory','childcategory'])->orderBy('id', 'asc')->get();
+        // // Update the auto-incrementing column values
+        //     foreach ($allRows as $index => $row) {
+        //         $row->id = $index + 1;
+        //         foreach($allRows->subcategory as $subcat){
+        //             $subcat->cat_id = $row->id;
+        //             $subcat->save();
+        //         }
+        //         foreach($allchild as $key => $child){
+        //             $child->cat_id = $row->id;
+        //             $child->save();
+        //         }
+        //         $row->save();
+        // }
             Session::flash('success','Deleted This Data');
             return redirect()->back();
         }

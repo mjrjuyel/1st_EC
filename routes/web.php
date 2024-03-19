@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+// Backend Controller 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,16 @@ Route::middleware(['auth','is_admin'])->group(function(){
     Route::post('/dashboard/childcategory/update',[ChildCategoryController::class, 'update'])->name('dashboard.childcategory.update');
     Route::delete('/dashboard/childcategory/delete/{id}',[ChildCategoryController::class, 'deleteI'])->name('dashboard.childcategory.delete');
     Route::delete('/dashboard/childcategory/softdel',[ChildCategoryController::class, 'softdel'])->name('dashboard.childcategory.softdel');
+
+    // Brand
+    Route::get('/dashboard/brand',[BrandController::class, 'index'])->name('dashboard.brand');
+    Route::post('/dashboard/brand/insert',[BrandController::class, 'store'])->name('dashboard.brand.store');
+    Route::get('/dashboard/brand/view/{slug}',[BrandController::class, 'view'])->name('dashboard.brand.view');
+    Route::get('/dashboard/brand/edit/{slug}',[BrandController::class, 'edit'])->name('dashboard.brand.edit');
+    Route::post('/dashboard/brand/update',[BrandController::class, 'update'])->name('dashboard.brand.update');
+    // Route::post('/dashboard/brand/softdel',[BrandController::class, 'softdelete'])->name('dashboard.brand.softdel');
+    Route::post('/dashboard/brand/delete',[BrandController::class, 'deleteI'])->name('dashboard.brand.delete');
+    
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

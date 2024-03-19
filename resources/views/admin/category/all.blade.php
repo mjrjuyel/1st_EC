@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="">
-                        <table class="table table-centered " id="myTable">
+                        <table class="table table-centered text-center" id="">
                             <thead class="table-light">
                                 <tr>
                                     <th class="all">
@@ -76,9 +76,11 @@
                                             <label class="form-check-label" for="customCheck1">&nbsp;</label>
                                         </div>
                                     </th>
-                                    <th>Category</th>
-                                    <th>Child Category</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Category</th>
+                                    <th class="text-center">Category Pic</th>
+                                    <th class="text-center">Sub Category</th>
+                                    <th class="text-center">Child Category</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,10 +95,25 @@
                                         <td>
                                             {{ $data->cat_title }}
                                         </td>
+
+                                        <td>
+                                            @if($data->cat_pic != '')
+                                                <img src="{{ asset('uploads/admin/category/'.$data->cat_pic) }}"
+                                                    class="img-fluid" alt="" style="width:200px; object-fit:cover;">
+                                            @endif
+                                        </td>
+
                                         <td>
                                             @foreach($data->subcategory as $subcat)
                                                 <button
-                                                    class="btn bg-primary text-dark">{{ optional($subcat)->subcat_title }}</button>
+                                                    class="btn bg-primary text-success">{{ optional($subcat)->subcat_title }}</button>
+                                            @endforeach
+
+                                        </td>
+                                        <td>
+                                            @foreach($data->childcategory as $child)
+                                                <button
+                                                    class="btn bg-primary text-success">{{ optional($child)->child_cat_title }}</button>
                                             @endforeach
 
                                         </td>
@@ -109,8 +126,8 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                     <li><a class="dropdown-item"
-                                                            href="{{ url('/dashboard/category/view/'.$data->cat_slug) }}"><i
-                                                                class="uil-table"></i>View</a></li>
+                                                            href="{{ url('/dashboard/category/data/'.$data->cat_slug) }}"><i
+                                                                class="uil-table"></i>data</a></li>
                                                     <li><a class="dropdown-item"
                                                             href="{{ url('dashboard/category/edit/'.$data->cat_slug) }}"><i
                                                                 class="uil-edit"></i>Edit</a></li>

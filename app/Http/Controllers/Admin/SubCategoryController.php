@@ -79,11 +79,11 @@ class SubcategoryController extends Controller
         $del->delete();
 
         if($del){
-            $alldata = SubCategory::orderBy('id','ASC')->get();
-            foreach($alldata as $index => $value){
-                $value->id = $index++;
-                $value->save();
-            }
+            // $alldata = SubCategory::orderBy('id','ASC')->get();
+            // foreach($alldata as $index => $value){
+            //     $value->id = $index + 1;
+            //     $value->save();
+            // }
             Session::flash('success','Deleted This Data');
             return redirect()->back();
         }  

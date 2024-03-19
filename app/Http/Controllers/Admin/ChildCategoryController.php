@@ -101,7 +101,6 @@ class ChildCategoryController extends Controller
 
         if($del){
             $alldata = ChildCategory::orderBy('id','ASC')->get();
-
             foreach($alldata as $index => $value){
                 $value->id = $index + 1;
                 $value->save();
