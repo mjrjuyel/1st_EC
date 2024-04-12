@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\WarehouseController;
+use App\Http\Controllers\Admin\CouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +69,34 @@ Route::middleware(['auth','is_admin'])->group(function(){
     Route::post('/dashboard/brand/update',[BrandController::class, 'update'])->name('dashboard.brand.update');
     // Route::post('/dashboard/brand/softdel',[BrandController::class, 'softdelete'])->name('dashboard.brand.softdel');
     Route::post('/dashboard/brand/delete',[BrandController::class, 'deleteI'])->name('dashboard.brand.delete');
-    
+
+//    Seo Setting Part
+    Route::group(['prefix'=>'dashboard'],function(){
+        Route::get('/setting/seo',[SettingController::class,'seo'])->name('dashboard.setting.seo');
+        Route::post('/setting/seo/update',[SettingController::class,'seoUpdate'])->name('dashboard.setting.seo.update');
+
+        // SMTP Mailer 
+        Route::get('/setting/smtp',[SettingController::class,'smtp'])->name('dashboard.setting.smtp');
+        Route::post('/setting/smtp/update',[SettingController::class,'smtpUpdate'])->name('dashboard.setting.smtp.update');
+    });
+
+    // WareHouse ============
+    Route::get('/dashboard/warehouse',[WarehouseController::class, 'index'])->name('dashboard.warehouse');
+    Route::post('/dashboard/warehouse/insert',[WarehouseController::class, 'store'])->name('dashboard.warehouse.store');
+    Route::get('/dashboard/warehouse/view/{slug}',[WarehouseController::class, 'view'])->name('dashboard.warehouse.view');
+    Route::get('/dashboard/warehouse/edit/{slug}',[WarehouseController::class, 'edit'])->name('dashboard.warehouse.edit');
+    Route::post('/dashboard/warehouse/update',[WarehouseController::class, 'update'])->name('dashboard.warehouse.update');
+    Route::post('/dashboard/warehouse/softdel',[WarehouseController::class, 'softdelete'])->name('dashboard.warehouse.softdel');
+    Route::post('/dashboard/warehouse/delete',[WarehouseController::class, 'deleteI'])->name('dashboard.warehouse.delete');
+
+    // Coupon Part start===
+    Route::get('/dashboard/coupon',[CouponController::class, 'index'])->name('dashboard.coupon');
+    Route::post('/dashboard/coupon/insert',[CouponController::class, 'store'])->name('dashboard.coupon.store');
+    Route::get('/dashboard/coupon/view/{slug}',[CouponController::class, 'view'])->name('dashboard.coupon.view');
+    Route::get('/dashboard/coupon/edit/{slug}',[CouponController::class, 'edit'])->name('dashboard.coupon.edit');
+    Route::post('/dashboard/coupon/update',[CouponController::class, 'update'])->name('dashboard.coupon.update');
+    Route::post('/dashboard/coupon/softdel',[CouponController::class, 'softdelete'])->name('dashboard.coupon.softdel');
+    Route::post('/dashboard/coupon/delete',[CouponController::class, 'deleteI'])->name('dashboard.coupon.delete');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

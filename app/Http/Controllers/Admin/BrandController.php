@@ -121,9 +121,9 @@ class BrandController extends Controller
         //     return redirect()->route('dashboard.brand');
         // }
     }
-    public function hello(){
-        return "This Is hello Msg";
-    }
+    // public function hello(){
+    //     return "This Is hello Msg";
+    // }
     public function deleteI(Request $request){
         $id=$request['modal_id'];
         return $request->all();

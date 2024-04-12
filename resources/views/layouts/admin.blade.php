@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -9,17 +10,20 @@
     <meta content="Juyel Ecommerce" name="author" />
 
     <link rel="shortcut icon" href="{{ asset('contents/admin') }}/assets/images/favicon.ico">
-    <link href="{{ asset('contents/admin') }}/assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="{{ asset('contents/admin') }}/assets/css/vendor/jquery-jvectormap-1.2.2.css"
+        rel="stylesheet" />
 
     <link href="{{ asset('contents/admin') }}/assets/css/icons.min.css" rel="stylesheet" />
-    <link href="{{ asset('contents/admin') }}/assets/css/app.min.css" rel="stylesheet"id="app-style" />
+    <link href="{{ asset('contents/admin') }}/assets/css/app.min.css" rel="stylesheet"
+        id="app-style" />
     @yield('datatable_css')
-    <link href="{{ asset('contents/admin') }}/assets/css/all.min.css" rel="stylesheet"/>
+    <link href="{{ asset('contents/admin') }}/assets/css/all.min.css" rel="stylesheet" />
     <link href="{{ asset('contents/admin') }}/assets/css/style.css" rel="stylesheet" />
 
     <script src="{{ asset('contents/admin') }}/assets/js/jquery.min.js"></script>
     <script src="{{ asset('contents/admin') }}/assets/js/sweetalert.min.js"></script>
 </head>
+
 <body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid"
     data-rightbar-onstart="true">
     <!-- Begin page -->
@@ -27,7 +31,7 @@
         <!-- ========== Left Sidebar Start ========== -->
         <div class="leftside-menu">
             <!-- LOGO -->
-            <a href="{{route('dashboard')}}" class="logo text-center logo-light">
+            <a href="{{ route('dashboard') }}" class="logo text-center logo-light">
                 <span class="logo-lg">
                     <img src="{{ asset('contents/admin') }}/assets/images/logo.png" alt=""
                         height="16">
@@ -38,7 +42,7 @@
                 </span>
             </a>
             <!-- LOGO -->
-            <a href="{{route('dashboard')}}" class="logo text-center logo-dark">
+            <a href="{{ route('dashboard') }}" class="logo text-center logo-dark">
                 <span class="logo-lg">
                     <img src="{{ asset('contents/admin') }}/assets/images/logo-dark.png" alt=""
                         height="16">
@@ -72,7 +76,7 @@
                                 </li>
                                 <li>
                                     <a href="dashboard-wallet.html">
-                                    E-Wallet<span class="badge rounded bg-danger font-10 float-end">New</span></a>
+                                        E-Wallet<span class="badge rounded bg-danger font-10 float-end">New</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -89,39 +93,59 @@
                         <div class="collapse" id="sidebarCategory">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="{{route('dashboard.category')}}">Category</a>
+                                    <a href="{{ route('dashboard.category') }}">Category</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.subcategory') }}">Sub Category</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.childcategory') }}">Child
+                                        Category</a>
+                                </li>
+                                <li class="side-nav-item">
+                                    <a href="{{ route('dashboard.brand') }}" class="side-nav-link">
+                                        <i class="uil-folder-plus"></i>
+                                        <span> Brand </span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
 
                     <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#sideSubCategory" aria-expanded="false"
-                            aria-controls="sideSubCategory" class="side-nav-link">
-                            <i class="uil-document-layout-center"></i>
-                            <span> Sub Category </span>
+                        <a data-bs-toggle="collapse" href="#sidebarOffer" aria-expanded="false"
+                            aria-controls="sidebarOffer" class="side-nav-link">
+                            <i class="uil-gift"></i>
+                            <span> Offer </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse" id="sideSubCategory">
+                        <div class="collapse" id="sidebarOffer">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="{{route('dashboard.subcategory')}}">Category</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('dashboard.childcategory')}}">Child Category</a>
+                                    <a href="{{ route('dashboard.coupon') }}">Coupon</a>
                                 </li>
                             </ul>
                         </div>
-                    </li>
-
-                    <li class="side-nav-item">
-                        <a href="{{route('dashboard.brand')}}" class="side-nav-link">
-                            <i class="uil-folder-plus"></i>
-                            <span> Brand </span>
-                        </a>
                     </li>
 
                     <li class="side-nav-title side-nav-item">Custom</li>
+
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#sidebarWareHouse" aria-expanded="false"
+                            aria-controls="sidebarWareHouse" class="side-nav-link">
+                            <i class="uil-document-layout-center"></i>
+                            <span> WareHouse </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarWareHouse">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{ route('dashboard.warehouse') }}">All</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </li>
 
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#sidebarMultiLevel" aria-expanded="false"
@@ -183,6 +207,38 @@
                             </ul>
                         </div>
                     </li>
+
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#sideSeoSetting" aria-expanded="false"
+                            aria-controls="sideSeoSetting" class="side-nav-link">
+                            <i class="uil-document-layout-center"></i>
+                            <span> Setting </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sideSeoSetting">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{ route('dashboard.setting.seo') }}"> Seo Setting</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.setting.seo') }}"> Website
+                                        Setting</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.setting.seo') }}"> Page
+                                        ManageMent</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.setting.smtp') }}"> SMTP Setting</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.setting.seo') }}"> Payment
+                                        Gateway</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                     <li class="side-nav-item">
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
@@ -413,7 +469,7 @@
                                         alt="user-image" class="rounded-circle">
                                 </span>
                                 <span>
-                                    <span class="account-user-name">{{Auth::user()->name}}</span>
+                                    <span class="account-user-name">{{ Auth::user()->name }}</span>
                                     <span class="account-position">Founder</span>
                                 </span>
                             </a>
@@ -425,7 +481,8 @@
                                 </div>
 
                                 <!-- item-->
-                                <a href="{{route('profile.edit')}}" class="dropdown-item notify-item">
+                                <a href="{{ route('profile.edit') }}"
+                                    class="dropdown-item notify-item">
                                     <i class="mdi mdi-account-circle me-1"></i>
                                     <span>My Account</span>
                                 </a>
@@ -573,6 +630,7 @@
                             <div class="col-md-6">
                                 <script>
                                     document.write(new Date().getFullYear())
+
                                 </script> © Hyper - Coderthemes.com
                             </div>
                             <div class="col-md-6">
@@ -595,10 +653,14 @@
         @yield('datatable_js')
         <script src="{{ asset('contents/admin') }}/assets/js/app.min.js"></script>
         <script src="{{ asset('contents/admin') }}/assets/js/vendor/apexcharts.min.js"></script>
-        <script src="{{ asset('contents/admin') }}/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"> </script>
-        <script src="{{ asset('contents/admin') }}/assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="{{ asset('contents/admin') }}/assets/js/vendor/jquery-jvectormap-1.2.2.min.js">
+        </script>
+        <script
+            src="{{ asset('contents/admin') }}/assets/js/vendor/jquery-jvectormap-world-mill-en.js">
+        </script>
         <script src="{{ asset('contents/admin') }}/assets/js/pages/demo.dashboard.js"></script>
         <script src="{{ asset('contents/admin') }}/assets/js/custom.js"></script>
-   
+
 </body>
+
 </html>
