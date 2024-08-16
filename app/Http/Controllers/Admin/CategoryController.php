@@ -11,6 +11,7 @@ use Carbon\Carbon;
 // use Intervention\Image\ImageManagerStatic as Image;
 use Image;
 use Session;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -129,5 +130,10 @@ class CategoryController extends Controller
             return redirect()->back();
         }
       
+    }
+
+    public function getChildCatgory($id){
+        $data = DB::table('child_categories')->where('subcat_id',$id)->get();
+        return response()->json($data);
     }
 }

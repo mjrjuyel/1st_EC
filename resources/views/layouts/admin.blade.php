@@ -83,6 +83,7 @@
                     </li>
 
                     <li class="side-nav-title side-nav-item"></li>
+
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#sidebarCategory" aria-expanded="false"
                             aria-controls="sidebarCategory" class="side-nav-link">
@@ -97,6 +98,35 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('dashboard.subcategory') }}">Sub Category</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.childcategory') }}">Child
+                                        Category</a>
+                                </li>
+                                <li class="side-nav-item">
+                                    <a href="{{ route('dashboard.brand') }}" class="side-nav-link">
+                                        <i class="uil-folder-plus"></i>
+                                        <span> Brand </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#sidebarProduct" aria-expanded="false"
+                            aria-controls="sidebarProduct" class="side-nav-link">
+                            <i class="uil-document-layout-center"></i>
+                            <span> Product </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarProduct">
+                            <ul class="side-nav-second-level">
+                                <li>
+                                    <a href="{{ route('dashboard.product.add') }}">Add Product</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dashboard.product') }}">All Product</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('dashboard.childcategory') }}">Child

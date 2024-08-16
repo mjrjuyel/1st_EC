@@ -73,6 +73,7 @@
                                 <tr>
                                     <th class="text-center">Brand</th>
                                     <th class="text-center">Brand Pic</th>
+                                    <th class="text-center">Brand Creator</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -195,6 +196,10 @@
                     render: function(data,type,full,meta){
                         return '<img src="{{asset('uploads/admin/brands')}}/' + data + '"Width="200px" style="object-fit:cover;" alt="">';
                     }
+                },
+                {
+                    data: 'brand_creator',
+                    name: 'brand_creator'
                 },
                 {
                     data: 'action',

@@ -69,3 +69,26 @@
     color: #313a46;
     text-align: initial;
 }
+
+/* tagsinput */
+.bootstrap-tagsinput {
+    display: block;
+}
+.bootstrap-tagsinput .tag{
+    background: #5bc0de;
+    color: #fff;
+    padding: 0px 5px;
+    border-radius: 4px;
+}
+.info-text{
+    margin-right: 8px;
+    margin-top: 5px;
+    font-style: italic;
+    font-size: 12px;
+    color: #494f9d;
+}
+
+/* summer note  */
+.note-editable {
+    resize: none; /* Disable resizing */
+}

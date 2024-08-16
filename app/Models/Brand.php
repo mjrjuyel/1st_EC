@@ -10,8 +10,8 @@ class Brand extends Model
     protected $guarded = [];
     public $timestamps = false;
     protected $casts = [
-        'updated_at' => 'datetime',
-        'created_at' =>'datetime'
+        'created_at' =>'datetime',
+        'updated_at' => 'datetime'
     ];
     public function creator(){
         return $this->belongsTo(User::class,'brand_creator');

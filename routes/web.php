@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::middleware(['auth','is_admin'])->group(function(){
     Route::delete('/dashboard/category/delete/{id}',[CategoryController::class, 'deleteI'])->name('dashboard.category.delete');
     Route::delete('/dashboard/category/softdel',[CategoryController::class, 'softdel'])->name('dashboard.category.softdel');
     // Route::get('/dashboard/category','CategoryController@index')->name('dashboard.category');
+
+    Route::get('/get-childid/{id}',[CategoryController::class,'getChildCatgory']);
 
     // Sub Category Part =============
     Route::get('/dashboard/subcategory',[SubCategoryController::class, 'index'])->name('dashboard.subcategory');
@@ -97,6 +100,31 @@ Route::middleware(['auth','is_admin'])->group(function(){
     Route::post('/dashboard/coupon/update',[CouponController::class, 'update'])->name('dashboard.coupon.update');
     Route::post('/dashboard/coupon/softdel',[CouponController::class, 'softdelete'])->name('dashboard.coupon.softdel');
     Route::post('/dashboard/coupon/delete',[CouponController::class, 'deleteI'])->name('dashboard.coupon.delete');
+
+     // Product  Part start===
+     Route::get('/dashboard/product',[ProductController::class, 'index'])->name('dashboard.product');
+     Route::get('/dashboard/product/add',[ProductController::class, 'add'])->name('dashboard.product.add');
+     Route::post('/dashboard/product/store',[ProductController::class, 'store'])->name('dashboard.product.store');
+     Route::get('/dashboard/product/view/{slug}',[ProductController::class, 'view'])->name('dashboard.product.view');
+     Route::get('/dashboard/product/edit/{slug}',[ProductController::class, 'edit'])->name('dashboard.product.edit');
+     Route::post('/dashboard/product/update',[ProductController::class, 'update'])->name('dashboard.product.update');
+     Route::post('/dashboard/product/softdel',[ProductController::class, 'softdelete'])->name('dashboard.product.softdel');
+     Route::post('/dashboard/product/delete',[ProductController::class, 'deleteI'])->name('dashboard.product.delete');
+    //  active featured
+    Route::get('/dashboard/product/act_feature/{id}',[ProductController::class, 'active_feature'])->name('dashboard.product.act_feature');
+    //  deactive featured
+    Route::get('/dashboard/product/deact_feature/{id}',[ProductController::class, 'deactive_feature'])->name('dashboard.product.deact_feature');
+
+    //  active featured
+    Route::get('/dashboard/product/act_today_deal/{id}',[ProductController::class, 'active_today_deal'])->name('dashboard.product.act_today_deal');
+    //  deactive featured
+    Route::get('/dashboard/product/deact_today_deal/{id}',[ProductController::class, 'deactive_today_deal'])->name('dashboard.product.deact_today_deal');
+
+    //  active featured
+    Route::get('/dashboard/product/act_status/{id}',[ProductController::class, 'active_status'])->name('dashboard.product.act_status');
+    //  deactive featured
+    Route::get('/dashboard/product/deact_status/{id}',[ProductController::class, 'deactive_status'])->name('dashboard.product.deact_status');
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
