@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 // Frontend Controller
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\CustomerAuth\LoginController;
+use App\Http\Controllers\CustomerAuth\RegisterController;
 
 // Backend Controller 
 use App\Http\Controllers\Admin\UserController;
@@ -36,8 +38,29 @@ Route::get('/product',function(){
 
 Route::get('/',[HomeController::class,'index'])->name('.');
 Route::get('/product/{slug}',[HomeController::class,'view']);
-Route::get('/customer/login',[HomeController::class,'login'])->name('customer.login');
 
+// Customer login Route
+Route::get('/customer/login',[LoginController::class,'showLoginForm'])->name('customer.login');
+Route::post('/customer/login/insert',[LoginController::class,'login'])->name('customer.login.insert');
+Route::get('/customer/register',[RegisterController::class,'registerForm'])->name('customer.register');
+Route::post('/customer/register/insert',[RegisterController::class,'register'])->name('customer.register.insert');
+
+Route::post('/customer/logout',[LoginController::class,'logout'])->name('customer.logout');
+Route::post('/customer/profile',[RegisterController::class,'profile'])->name('customer.profile');
+
+
+// Route::prefix('customer')->name('customer.')->group(function () {
+//     Route::get('/login', [App\Http\Controllers\CustomerAuth\LoginController::class, 'showLoginForm'])->name('login');
+//     Route::post('/login', [App\Http\Controllers\CustomerAuth\LoginController::class, 'login']);
+//     Route::post('/logout', [App\Http\Controllers\CustomerAuth\LoginController::class, 'logout'])->name('logout');
+
+//     Route::get('/register', [App\Http\Controllers\CustomerAuth\RegisterController::class, 'showRegistrationForm'])->name('register');
+//     Route::post('/register', [App\Http\Controllers\CustomerAuth\RegisterController::class, 'register']);
+
+//     Route::get('/dashboard', function () {
+//         return view('customer.dashboard');
+//     })->name('dashboard')->middleware('auth:customer');
+// });
 
 
 // ---------------------============= front end controller =========
