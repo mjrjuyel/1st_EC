@@ -134,22 +134,30 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="Unit" class="form-label">Cash On Delevery</label>
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="Unit" class="form-label">Cash On Del</label>
                                                     <input type="checkbox" id="switch4" value="1" checked name="COD"
                                                         data-switch="Delivery" />
                                                     <label for="switch4" data-on-label="yes"
                                                         data-off-label="no"></label>
                                                 </div>
 
-                                                <div class="col-md-4 mb-3">
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="Unit" class="form-label">Add In Slider</label>
+                                                    <input type="checkbox" id="switch2" value="1"  name="slider"
+                                                        data-switch="Delivery" />
+                                                    <label for="switch2" data-on-label="yes"
+                                                        data-off-label="no"></label>
+                                                </div>
+
+                                                <div class="col-md-3 mb-3">
                                                     <label for="Unit" class="form-label">Today Deal </label><br>
                                                     <input type="checkbox" id="switch5" value="1" checked  name="TD" data-switch="info" />
                                                     <label for="switch5" data-on-label="yes"
                                                         data-off-label="no"></label>
                                                 </div>
 
-                                                <div class="col-md-4 mb-3">
+                                                <div class="col-md-3 mb-3">
                                                     <label for="Unit" class="form-label">Flash Deal</label><br>
                                                     <input type="checkbox" id="switch3" value="1" checked name="FD" data-switch="info" />
                                                     <label for="switch3" data-on-label="yes"

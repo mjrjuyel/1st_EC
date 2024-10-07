@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
         ]);
+        $this->call([
+            SeoSettingSeeder::class,
+        ]);
         // \App\Models\Brand::factory(200)->create();
         // \App\Models\Warehouse::factory(200)->create();
 

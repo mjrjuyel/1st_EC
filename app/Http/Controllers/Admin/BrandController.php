@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Brand;
+use App\Events\BrandProcessed;
 use Auth;
 use Carbon\Carbon;
 // use Intervention\Image\ImageManagerStatic as Image;
@@ -66,6 +67,16 @@ class BrandController extends Controller
             'brand_creator'=>Auth::user()->id,
             'created_at'=>carbon::now(),
         ]);
+
+        $date=carbon::now();
+        $event =[
+            'title'=>$request['title'],
+        ];
+        // return $event;
+        // event Caling
+        event(new BrandProcessed($event));
+
+
             Session::flash('success','Brand has Created SuccessFully');
             return redirect()->back();
    }
@@ -126,7 +137,17 @@ class BrandController extends Controller
     // }
     public function deleteI(Request $request){
         $id=$request['modal_id'];
-        return $request->all();
+        $del=Brand::where('id',$id)->delete();
+        if($del){
+                // Ro₩ Gap Reduce
+            $allRows = Brand::all();
+        // Update the auto-incrementing column values
+            foreach ($allRows as $index => $row) {
+                $row->id = $index + 1;
+                $row->save();
+            }
+        }
+        return redirect()->back();
     }
    
 }

@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index(Request $request){
         // $product = Product::where('pro_status','1')->latest('id')->get();
         if($request->ajax()){
-            $data=Product::latest()->get();
+            $data=Product::where('pro_status','!=','2')->latest()->get();
             // return $data;
             return DataTables::of($data)
             ->editColumn('cat_title',function($data){
@@ -72,7 +72,7 @@ class ProductController extends Controller
                             href=" '. url('dashboard/product/edit/'.$data->pro_slug).'"><i
                                 class="uil-edit"></i>Edit</a></li>
                     <li>      
-                        <a  href="#" id="softDel" class="dropdown-item  text-danger" data-bs-toggle="modal" data-bs-target="#Delete"
+                        <a  href="#" id="softDel" class="dropdown-item  text-danger" data-bs-toggle="modal" data-bs-target="#softDelete_modal"
                         data-id='.$data->id.'><i class="uil-trash-alt"></i>Delete</a>
                     </li>
                 </ul>
@@ -163,6 +163,7 @@ class ProductController extends Controller
             'pro_discount_price'=>$request['discount'],
             'pro_stock_quantity'=>$request['quantity'],
             'pro_today_deal'=>$request['TD'],
+            'pro_slider'=>$request['slider'],
             'flash_deal_id'=>$request['FD'],
             'cash_on_delevery'=>$request['COD'],
             'pro_slug'=>'pro-'.uniqId(),
@@ -175,50 +176,151 @@ class ProductController extends Controller
         }
    }
 
-   public function edit($slug){
-    $edit =Product::where('wh_status','1')->where('wh_slug',$slug)->first();
-    // dd($edit);
-    return view('admin.product.edit',compact('edit'));
+   public function view($slug){
+    $view=Product::with(['category','subcat','childcategory','brand'])->where('pro_slug',$slug)->first();
+    // return $view;
+    return view('admin.product.view',compact('view'));
    }
+
+   public function edit($slug){
+    $edit =Product::where('pro_status','1')->where('pro_slug',$slug)->first();
+    $brand = Brand::where('brand_status','1')->latest('id')->get();
+    $cat = Category::where('cat_status','1')->latest('id')->get();
+    $subcat = Subcategory::where('subcat_status','1')->latest('id')->get();
+    // dd($edit);
+    return view('admin.product.edit',compact(['edit','brand','cat']));
+   }
+
+
     public function update(Request $request){
         $id = $request['id'];
         $slug = $request['slug'];
         $request->validate([
             'title'=>'required',
-            'phone'=>'required',
-            'address'=>'required',
-        ]);
-        
-        $insert = Product::where('wh_status','1')->where('id',$id)->update([
-            'wh_name'=>$request['title'],
-            'wh_address'=>$request['address'],
-            'wh_phone'=>$request['phone'],
-            'wh_slug'=>$slug,
-            'created_at'=>carbon::now(),
+            'code'=>'required',
+            'unit'=>'required',
+            'category'=>'required',
+            'purchase'=>'required',
+            'selling'=>'required',
+            'color'=>'required',
+            'size'=>'required',
+            'quantity'=>'required',
+            'tags'=>'required',
+            'thumbnail'=>'',
+            'pic2'=>'',
+            'pic3'=>'',
+            'description'=>'required',
         ]);
 
-        Session::flash('success','Product has updated SuccessFully');
-        return redirect()->back();
-    }
+        $old = Product::find($id);
+        $path = public_path('uploads/admin/product/');
+        // thumnail file
+        if($request->hasFile('thumbnail')){
+            if($old->pro_thumbnail != '' && $old->pro_thumbnail != null){
+                $old_pic = $path.$old->pro_thumbnail;
+                unlink($old_pic);
+            }
 
-    public function view($slug){
-        $view = Product::where('wh_status','1')->where('wh_slug',$slug)->first();
-        return view('admin.product.view',compact('view'));
-    }
+            $image=$request->file('thumbnail');
+            $image_name_1 = 'Thumb-'.uniqId().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/admin/product'),$image_name_1);
 
-    public function softdelete(Request $request){
-        // echo "This is SoftDelete function";
-        $id =$request['modal_id'];
-        // $request->all();
-        $softdel =Product::where('wh_status','1')->where('id',$id)->update([
-            'wh_status'=>0,
-            'updated_at'=>Carbon::now(),
-        ]);
-        if($softdel){
-            Session::flash('success','Data has deleted!');
-            return redirect()->route('dashboard.product');
+            Product::where('id',$id)->update([
+                'pro_thumbnail'=>$image_name_1,
+            ]);
         }
-    }
+        if($request->hasFile('pic2')){
+            if($old->pro_pic2 != '' && $old->pro_pic2 != null){
+                $old_pic = $path.$old->pro_pic2;
+                unlink($old_pic);
+            }
+    
+            $image=$request->file('pic2');
+            $image_name_2 = $request->title.'1-'.uniqId().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/admin/product'),$image_name_2);
+
+            Product::where('id',$id)->update([
+                'pro_pic2'=>$image_name_2,
+            ]);
+            
+        }
+        if($request->hasFile('pic3')){
+            if($old->pro_pic3 != '' && $old->pro_pic3 != null){
+                $old_pic = $path.$old->pro_pic3;
+                unlink($old_pic);
+            }
+            
+            $image=$request->file('pic3');
+            $image_name_3 = $request->title.'2-'.uniqId().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/admin/product'),$image_name_3);
+
+            Product::where('id',$id)->update([
+                'pro_pic3'=>$image_name_3,
+            ]);
+
+        }
+        if($request->hasFile('pic4')){
+            if($old->pro_pic4 != '' && $old->pro_pic4 != null){
+                $old_pic = $path.$old->pro_pic4;
+                unlink($old_pic);
+            }
+           
+            
+            $image=$request->file('pic4');
+            $image_name_4 =$request->title.'3-'.uniqId().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/admin/product'),$image_name_4);
+
+            Product::where('id',$id)->update([
+                'pro_pic4'=>$image_name_4,
+            ]);
+        }
+        if($request->hasFile('pic5')){
+            if($old->pro_pic5 != '' && $old->pro_pic5 != null){
+                $old_pic = $path.$old->pro_pic5;
+                unlink($old_pic);
+            }
+
+            $image=$request->file('pic5');
+            $image_name_5 = $request->title.'4-'.uniqId().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/admin/product'),$image_name_5);
+
+            Product::where('id',$id)->update([
+                'pro_pic5'=>$image_name_5,
+            ]);
+        }
+
+        $cat = SubCategory::where('id',$request->category)->first();
+
+        $insert =Product::where('id',$id)->update([
+            'pro_title'=>$request['title'],
+            'pro_code'=>$request['code'],
+            'brand_id'=>$request['brand'],
+            'category_id'=>$cat->cat_id,
+            'sub_category_id'=>$request['category'],
+            'child_cat_id'=>$request['childcategory'],
+            'pro_unit'=>$request['unit'],
+            'pro_tags'=>$request['tags'],
+            'pro_description'=>$request['description'],
+            'pro_video'=>$request['video'],
+            'pro_color'=>$request['color'],
+            'pro_size'=>$request['size'],
+            'pro_purchase_price'=>$request['purchase'],
+            'pro_selling_price'=>$request['selling'],
+            'pro_discount_price'=>$request['discount'],
+            'pro_stock_quantity'=>$request['quantity'],
+            'pro_today_deal'=>$request['TD'],
+            'pro_slider'=>$request['slider'],
+            'flash_deal_id'=>$request['FD'],
+            'cash_on_delevery'=>$request['COD'],
+            'pro_slug'=>$slug,
+            'pro_editor'=>Auth::user()->id,
+            'updated_at'=>carbon::now()->toDateTimeString(),
+        ]);
+        if($insert){
+            Session::flash('success','Product has Updated SuccessFully');
+            return redirect()->back();
+        }
+   }
     
     public function deleteI(Request $request){
         $id=$request['modal_id'];
@@ -287,6 +389,19 @@ class ProductController extends Controller
             'status'=>'success',
             'redirect'=>'/dashboard/product',
         ]);
+    }
+
+    // product SoftDelete
+
+    public function softdelete(Request $request){
+        $id=$request['modal_id'];
+        $softdel = Product::where('id',$id)->update([
+            'pro_status'=>2,
+            'pro_editor'=>Auth::user()->id,
+            'updated_at'=>carbon::now(),
+        ]);
+
+        return redirect()->back();
     }
 
 }

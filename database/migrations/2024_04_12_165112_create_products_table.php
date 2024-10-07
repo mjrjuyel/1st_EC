@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('pro_pic4',100)->nullable();
             $table->string('pro_pic5',100)->nullable();
             $table->integer('pro_featured')->nullable();
+            $table->integer('pro_slider')->default(0);
             $table->integer('pro_today_deal')->nullable();
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delevery')->nullable();

@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// Frontend Controller
+use App\Http\Controllers\Frontend\HomeController;
+
 // Backend Controller 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -25,9 +28,19 @@ use App\Http\Controllers\Admin\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// ---------------------============= front end controller =========
+
+Route::get('/product',function(){
+    return view('frontend.product_view');
 });
+
+Route::get('/',[HomeController::class,'index'])->name('.');
+Route::get('/product/{slug}',[HomeController::class,'view']);
+Route::get('/customer/login',[HomeController::class,'login'])->name('customer.login');
+
+
+
+// ---------------------============= front end controller =========
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard.index');

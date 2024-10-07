@@ -12,8 +12,8 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
                         <li class="breadcrumb-item active">Products</li>
                     </ol>
                 </div>
@@ -96,28 +96,28 @@
 
 
 <!-- Soft Delete Modal  -->
-<!-- <div id="softDelete_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel"
+<div id="softDelete_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
-        
-@csrf
-            <div class="modal-content">
-                <div class="modal-header modal-colored-header bg-warning">
-                    <h4 class="modal-title" id="primary-header-modalLabel">Product Product</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                </div>
-                <div class="modal-body modal_body">
-                    Are You Sure want to Delete?
-                    <input type="text" name="modal_id" id="modal_id">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="Submit" class="btn btn-primary">Yes</button>
-                </div>
+        <form action="{{route('dashboard.product.softdel')}}" method="post">
+        @csrf
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-warning">
+                <h4 class="modal-title" id="primary-header-modalLabel">Product Product</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
+            <div class="modal-body modal_body">
+                Are You Sure want to Delete?
+                <input type="hidden" name="modal_id" id="modal_id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="Submit" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
         </form>
     </div>
-</div> -->
+</div>
 @endsection
 @section('datatable_js')
 <script>
@@ -183,102 +183,101 @@
     // Active featured 
     $(document).on("click", ".active_feature", function () {
         var Id = $(this).data('id');
-        var url = "{{url('dashboard/product/act_feature')}}"+"/"+Id;
+        var url = "{{ url('dashboard/product/act_feature') }}" + "/" + Id;
         // alert(url);
         $.ajax({
-            url:url,
-            type:"get",
-            success:function(response){
-                if(response.status === "success"){
-                window.location.href = response.redirect;
+            url: url,
+            type: "get",
+            success: function (response) {
+                if (response.status === "success") {
+                    window.location.href = response.redirect;
                 }
             }
         });
     });
 
-     // DEactive featured 
-     $(document).on("click", ".deactive_feature", function () {
+    // DEactive featured 
+    $(document).on("click", ".deactive_feature", function () {
         var Id = $(this).data('id');
         // $(".modal_body #modal_id").val(deleteID);
-        var url = "{{url('dashboard/product/deact_feature')}}"+"/"+Id;
+        var url = "{{ url('dashboard/product/deact_feature') }}" + "/" + Id;
         // alert(url);
         $.ajax({
-            url:url,
-            type:"get",
-            success:function(response){
-                if(response.status === "success"){
-                window.location.href = response.redirect;
+            url: url,
+            type: "get",
+            success: function (response) {
+                if (response.status === "success") {
+                    window.location.href = response.redirect;
                 }
             }
         });
     });
 
-     // Active Today deal 
-     $(document).on("click", ".active_today_deal", function () {
+    // Active Today deal 
+    $(document).on("click", ".active_today_deal", function () {
         var Id = $(this).data('id');
-        var url = "{{url('dashboard/product/act_today_deal')}}"+"/"+Id;
+        var url = "{{ url('dashboard/product/act_today_deal') }}" + "/" + Id;
         // alert(url);
         $.ajax({
-            url:url,
-            type:"get",
-            success:function(response){
-                if(response.status === "success"){
-                window.location.href = response.redirect;
+            url: url,
+            type: "get",
+            success: function (response) {
+                if (response.status === "success") {
+                    window.location.href = response.redirect;
                 }
             }
         });
     });
 
-     // DEactive Today deal 
-     $(document).on("click", ".deactive_today_deal", function () {
-        var Id = $(this).data('id');
-        // $(".modal_body #modal_id").val(deleteID);
-        var url = "{{url('dashboard/product/deact_today_deal')}}"+"/"+Id;
-        // alert(url);
-        $.ajax({
-            url:url,
-            type:"get",
-            success:function(response){
-                if(response.status === "success"){
-                window.location.href = response.redirect;
-                }
-            }
-        });
-    });
-
-     // Active status 
-     $(document).on("click", ".active_status", function () {
-        var Id = $(this).data('id');
-        var url = "{{url('dashboard/product/act_status')}}"+"/"+Id;
-        // alert(url);
-        $.ajax({
-            url:url,
-            type:"get",
-            success:function(response){
-                if(response.status === "success"){
-                window.location.href = response.redirect;
-                }
-            }
-        });
-    });
-
-     // DEactive status 
-     $(document).on("click", ".deactive_status", function () {
+    // DEactive Today deal 
+    $(document).on("click", ".deactive_today_deal", function () {
         var Id = $(this).data('id');
         // $(".modal_body #modal_id").val(deleteID);
-        var url = "{{url('dashboard/product/deact_status')}}"+"/"+Id;
+        var url = "{{ url('dashboard/product/deact_today_deal') }}" + "/" + Id;
         // alert(url);
         $.ajax({
-            url:url,
-            type:"get",
-            success:function(response){
-                if(response.status === "success"){
-                window.location.href = response.redirect;
+            url: url,
+            type: "get",
+            success: function (response) {
+                if (response.status === "success") {
+                    window.location.href = response.redirect;
                 }
             }
         });
     });
- 
+
+    // Active status 
+    $(document).on("click", ".active_status", function () {
+        var Id = $(this).data('id');
+        var url = "{{ url('dashboard/product/act_status') }}" + "/" + Id;
+        // alert(url);
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (response) {
+                if (response.status === "success") {
+                    window.location.href = response.redirect;
+                }
+            }
+        });
+    });
+
+    // DEactive status 
+    $(document).on("click", ".deactive_status", function () {
+        var Id = $(this).data('id');
+        // $(".modal_body #modal_id").val(deleteID);
+        var url = "{{ url('dashboard/product/deact_status') }}" + "/" + Id;
+        // alert(url);
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (response) {
+                if (response.status === "success") {
+                    window.location.href = response.redirect;
+                }
+            }
+        });
+    });
 
 </script>
 <script src="{{ asset('contents/admin') }}/assets/js/dataTables.min.js"></script>

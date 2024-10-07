@@ -126,7 +126,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                     <li><a class="dropdown-item"
-                                                            href="{{ url('/dashboard/category/data/'.$data->cat_slug) }}"><i
+                                                            href="{{ url('/dashboard/category/view/'.$data->cat_slug) }}"><i
                                                                 class="uil-table"></i>data</a></li>
                                                     <li><a class="dropdown-item"
                                                             href="{{ url('dashboard/category/edit/'.$data->cat_slug) }}"><i

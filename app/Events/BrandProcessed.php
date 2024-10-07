@@ -17,9 +17,11 @@ class BrandProcessed
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public $brand;
+
+    public function __construct($event)
     {
-        //
+        $this->brand=$event;
     }
 
     /**

@@ -8,12 +8,13 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">JUYEL</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Category</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Products</a></li>
                         <li class="breadcrumb-item active">Detail :</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Category Detail </h4>
+                <h4 class="page-title">Product Detail </h4>
             </div>
         </div>
     </div>
@@ -25,9 +26,10 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-5">
-                            <a href="#" class="btn btn-primary mb-2" data-bs-toggle="modal"
+                            <a href="{{ route('dashboard.product.add') }}"
+                                class="btn btn-primary mb-2" data-bs-toggle="modal"
                                 data-bs-target="#staticStoreModal"><i class="mdi mdi-plus-circle me-2"></i> Add
-                                Category</a>
+                                Product</a>
                         </div>
                     </div>
 
@@ -36,52 +38,124 @@
                             <div class="card-header bg-dark">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h3 class="card_header"><i class="fa-solid fa-shirt header_icon"></i>{{$view->cat_title}}
+                                        <h3 class="card_header"><i
+                                                class="fa-solid fa-shirt header_icon"></i>{{ $view->pro_title }}
                                         </h3>
                                     </div>
-                                    <div class="col-md-2 text-end"><a href="{{route('dashboard.category')}}"
+                                    <div class="col-md-2 text-end"><a
+                                            href="{{ route('dashboard.product') }}"
                                             class="btn btn-sm btn-primary btn_header ">
-                                            <i class="fa-brands fa-servicestack btn_icon"></i>All Category</a>
+                                            <i class="fa-brands fa-servicestack btn_icon"></i>All Product</a>
                                     </div>
-                                    <div class="col-md-2"><a href="{{url('dashboard/category/edit/'.$view->cat_slug)}}" class="btn btn-sm btn-primary btn_header"><i class="uil-edit btn_icon"></i>Edit</a>
+                                    <div class="col-md-2"><a
+                                            href="{{ url('dashboard/product/edit/'.$view->pro_slug) }}"
+                                            class="btn btn-sm btn-primary btn_header"><i
+                                                class="uil-edit btn_icon"></i>Edit</a>
                                     </div>
                                 </div>
                             </div>
 
                             <table class="table border view_table">
                                 <tr>
-                                    <td>Category Name</td>
+                                    <td>Product Name</td>
                                     <td>:</td>
-                                    <td>{{ $view->cat_title }}</td>
+                                    <td>{{ $view->pro_title }}</td>
                                 </tr>
+
                                 <tr>
-                                    <td>Category pic</td>
+                                    <td>Product Code</td>
+                                    <td>:</td>
+                                    <td>{{ $view->pro_code }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product Brand</td>
+                                    <td>:</td>
+                                    <td>{{ $view->brand->brand_title }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product Tags</td>
+                                    <td>:</td>
+                                    <td>{{ $view->pro_tags }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product color</td>
+                                    <td>:</td>
+                                    <td class="text-primary">{{ $view->pro_color }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product Size</td>
+                                    <td>:</td>
+                                    <td>{{ $view->pro_size }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product Purchase price</td>
+                                    <td>:</td>
+                                    <td>${{ $view->pro_purchase_price }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product Selling price</td>
+                                    <td>:</td>
+                                    <td>${{ $view->pro_selling_price }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product Discount price</td>
+                                    <td>:</td>
+                                    <td>${{ $view->pro_discount_price }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product</td>
+                                    <td>:</td>
+                                    <td>{{ $view->pro_ }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Product</td>
+                                    <td>:</td>
+                                    <td>{{ $view->pro_ }}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Product pic</td>
                                     <td>:</td>
                                     <td>
-                                           @if($view->cat_pic != '')
-                                            <img src="{{asset('uploads/admin/category/'.$view->cat_pic)}}" class="img-fluid" alt="" style="width:50%; object-fit:cover;">
-                                            @endif
+                                        @if($view->pro_pic2 != '')
+                                            <img src="{{ asset('uploads/admin/product/'.$view->pro_pic2) }}"
+                                                class="img-fluid" alt="" style="width:100px; object-fit:cover;">
+                                        @else
+                                        <img src="{{ asset('uploads/admin/product/'.$view->pro_pic) }}"
+                                                class="img-fluid" alt="" style="width:50%; object-fit:cover;">
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Category Creator</td>
+                                    <td>Product Creator</td>
                                     <td>:</td>
                                     <td>{{ $view->creator->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Category Editor</td>
+                                    <td>Product Editor</td>
                                     <td>:</td>
-                                    <td>{{optional($view->editor)->name}}</td>
+                                    <td>{{ optional($view->editor)->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Category Created At</td>
+                                    <td>Product Created At</td>
                                     <td>:</td>
-                                    <td>{{$view->created_at->format('D-M-Y | h:m:s A')}}</td>
+                                    <td>{{ $view->created_at->format('D-M-Y | h:m:s A') }}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Category Edited At</td>
+                                    <td>Product Edited At</td>
                                     <td>:</td>
-                                    <td>{{optional($view->updated_at)->format('D-M-Y | h:m:s A')}}</td>
+                                    <td>{{ optional($view->updated_at)->format('D-M-Y | h:m:s A') }}
+                                    </td>
                                 </tr>
                             </table>
 
@@ -102,7 +176,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center mt-2 mb-4">
-                    <h2 class="modal_form_title"><i class="mdi mdi-plus-circle me-2"></i> Add Product Category</h2>
+                    <h2 class="modal_form_title"><i class="mdi mdi-plus-circle me-2"></i> Add Product Product</h2>
                 </div>
                 <hr>
                 <form class="ps-3 pe-3" action="{{ route('dashboard.category.store') }}" method="post"
@@ -133,7 +207,7 @@
                     @endif
                     @csrf
                     <div class="mb-3">
-                        <label for="username" class="form-label">Product Category Title<span class="important">*
+                        <label for="username" class="form-label">Product Product Title<span class="important">*
                                 :</span></label>
                         <input class="form-control" type="text" id="username" name="title"
                             value="{{ old('title') }}">
@@ -144,7 +218,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="categoryPic" class="form-label">Product Category Pic<span class="important">*
+                        <label for="categoryPic" class="form-label">Product Product Pic<span class="important">*
                                 :</span></label>
                         <input class="form-control" type="file" id="categoryPic" name="pic">
 
