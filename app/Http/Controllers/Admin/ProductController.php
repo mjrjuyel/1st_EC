@@ -312,6 +312,7 @@ class ProductController extends Controller
             'pro_slider'=>$request['slider'],
             'flash_deal_id'=>$request['FD'],
             'cash_on_delevery'=>$request['COD'],
+            'pro_trendy'=>$request['trend'],
             'pro_slug'=>$slug,
             'pro_editor'=>Auth::user()->id,
             'updated_at'=>carbon::now()->toDateTimeString(),

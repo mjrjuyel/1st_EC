@@ -58,6 +58,22 @@
                             class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                             class="fa fa-star"></i> <span class="ml-1">2,123</span> </span> </div>
                 <hr>
+
+                <div class="">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <label>Review:</label>
+                        <input type="text" class="form-input" name="review">
+                        <label>star:</label>
+                        <input type="number" class="form-input" name="star">
+                        <label>Image:</label>
+                        <input type="file" class="form-input" name="pic1">
+                        <label>Image2:</label>
+                        <input type="file" class="form-input" name="pic2">
+
+                        <button type="submit">submit</button>
+                    </form>
+                </div>
+                <hr>
                 <div class="comment-section">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/o5uMfKo.jpg"
@@ -154,8 +170,26 @@
                     @endisset
                     <br>
                     <div class="buttons"> <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>
-                        <button class="btn btn-warning btn-long buy">Buy it Now</button> <button
-                            class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </button>
+                        <button class="btn btn-warning btn-long buy">Buy it Now</button>
+                        <a href="{{ route('product.wishlist',$sinpro->id) }}"
+                            class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </a>
+                    </div>
+                    <div style="margin-top: 10px; text-align:center;">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
                     </div>
                 </form>
                 <hr>
@@ -192,19 +226,22 @@
             </div>
             <div class="card mt-2"> <span>Similar items:</span>
                 <div class="similar-products mt-2 d-flex flex-row">
-                    @foreach($relate as $simi)
-                        <a href="{{url('/product/'.$simi->pro_slug)}}">
-                            <div class="card border p-1" style="width: 9rem;margin-right: 3px;"> <img
-                                    src="{{ asset('uploads/admin/product/'.$simi->pro_thumbnail) }}"
-                                    style="height:100px; object-fit:cover;" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h6 class="card-title">@if($simi->pro_discount_price != '')
-                                        ${{ $simi->pro_discount_price }} @else ${{ $simi->pro_selling_price }}
-                                        @endif</h6>
+                    @if($relate)
+                        @foreach($relate as $simi)
+                            <a href="{{ url('/product/'.$simi->pro_slug) }}">
+                                <div class="card border p-1" style="width: 9rem;margin-right: 3px;"> <img
+                                        src="{{ asset('uploads/admin/product/'.$simi->pro_thumbnail) }}"
+                                        style="height:100px; object-fit:cover;" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h6 class="card-title">@if($simi->pro_discount_price != '')
+                                            ${{ $simi->pro_discount_price }} @else ${{ $simi->pro_selling_price }}
+                                            @endif
+                                        </h6>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    @endforeach
+                            </a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

@@ -85,7 +85,9 @@
                                             src="{{ asset('contents/frontend') }}/assets/images/user.svg"
                                             alt=""></div>
                                     @if(Auth::guard('customer')->check())
-                                        <div><a href="{{ route('customer.profile') }}">{{ Auth::guard('customer')->user()->name }}</a></div>
+                                        <div><a
+                                                href="{{ route('customer.profile') }}">{{ Auth::guard('customer')->user()->name }}</a>
+                                        </div>
                                         <a href="{{ route('customer.logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Logout
@@ -153,10 +155,21 @@
                                 <div class="wishlist d-flex flex-row align-items-center justify-content-end">
                                     <div class="wishlist_icon"><img
                                             src="{{ asset('contents/frontend') }}/assets/images/heart.png"
-                                            alt=""></div>
+                                            alt="">
+                                    </div>
+                                    @if(Auth::guard('customer')->check())
+                                        @php
+                                            $wishlist
+                                            =App\Models\WishList::where('customer_id',Auth::guard('customer')->user()->id)->count();
+                                        @endphp
+                                    @endif
                                     <div class="wishlist_content">
                                         <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                        <div class="wishlist_count">115</div>
+                                        @if(Auth::guard('customer')->check())
+                                            <div class="wishlist_count">{{ $wishlist }}</div>
+                                        @else
+                                            <div class="wishlist_count">0</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- Cart -->
@@ -408,10 +421,9 @@
     <script src="{{ asset('contents/frontend') }}/assets/plugins/easing/easing.js"></script>
     @yield('product_js')
     @yield('login_js')
-    <script src="{{ asset('contents/frontend') }}/assets/js/custom.js"></script>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script src="{{ asset('contents/frontend') }}/assets/js/custom.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -419,8 +431,15 @@
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'UA-23581568-13');
+
+        // notification timeout
+        setTimeout(function () {
+            let alert = document.querySelector('.alert');
+            if (alert) {
+                alert.style.display = 'none';
+            }
+        }, 3000); // 3 seconds
 
     </script>
 

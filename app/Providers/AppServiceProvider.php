@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\SubCatgory;
 use App\Models\ChildCatgory;
+use App\Models\WishList;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         //     // $view->with('socials', $socials);
         // });
         view()->share('category',$category);
+        // $wishlist = WishList::where('customer_id',Auth::guard('customer')->user()->id)->count();
+        // view()->share('wishlist',$wishlist);
 
     }
 }

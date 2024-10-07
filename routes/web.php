@@ -3,12 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Frontend Controller
+// ====== Frontend Controller
+
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ReviewController;
+
+// Customer Auth Controller
 use App\Http\Controllers\CustomerAuth\LoginController;
 use App\Http\Controllers\CustomerAuth\RegisterController;
 
-// Backend Controller 
+// ======Backend Controller 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -37,7 +41,7 @@ Route::get('/product',function(){
 });
 
 Route::get('/',[HomeController::class,'index'])->name('.');
-Route::get('/product/{slug}',[HomeController::class,'view']);
+Route::get('/product/{slug}',[HomeController::class,'view'])->name('product');
 
 // Customer login Route
 Route::get('/customer/login',[LoginController::class,'showLoginForm'])->name('customer.login');
@@ -45,9 +49,16 @@ Route::post('/customer/login/insert',[LoginController::class,'login'])->name('cu
 Route::get('/customer/register',[RegisterController::class,'registerForm'])->name('customer.register');
 Route::post('/customer/register/insert',[RegisterController::class,'register'])->name('customer.register.insert');
 
-Route::post('/customer/logout',[LoginController::class,'logout'])->name('customer.logout');
-Route::post('/customer/profile',[RegisterController::class,'profile'])->name('customer.profile');
+Route::middleware('auth.customer')->group(function(){
+    // ===== logout Route
+    Route::post('/customer/logout',[LoginController::class,'logout'])->name('customer.logout');
+    Route::get('/customer/profile',function(){
+        return "this is profile";
+    })->name('customer.profile');
 
+    // ======= wish list 
+    Route::get('product/wishlist/{id}',[ReviewController::class,'wishlist'])->name('product.wishlist');
+});
 
 // Route::prefix('customer')->name('customer.')->group(function () {
 //     Route::get('/login', [App\Http\Controllers\CustomerAuth\LoginController::class, 'showLoginForm'])->name('login');

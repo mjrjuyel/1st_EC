@@ -17,7 +17,7 @@ body {
 }
 
 img {
-    display: block;
+    vertical-align: middle;
     height: auto;
     width: 100%
 }
@@ -241,4 +241,9 @@ label.radio input:checked+span::before {
     width: 60px;
     text-align: center;
     margin-inline: 4px;
+}
+
+/* ==== transition  */
+.alert{
+    transition: 3s;
 }

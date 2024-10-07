@@ -164,6 +164,17 @@
                                                         data-off-label="no"></label>
                                                 </div>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="Unit" class="form-label">Trendy Product</label>
+                                                    <input type="checkbox" id="switch6" value="1" name="trendy"
+                                                        data-switch="Delivery" />
+                                                    <label for="switch6" data-on-label="yes"
+                                                        data-off-label="no"></label>
+                                                </div>
+                                            </div>
+
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
                                                     <label for="Unit" class="form-label">Purchase price<span
@@ -175,7 +186,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="Unit" class="form-label">Selling Price<span
+                                                    <label for="" class="form-label">Selling Price<span
                                                             class="important">*:</span></label><br>
                                                     <input class="form-control" value="{{old('selling')}}" type="number" id="" name="selling" />
                                                     @error('selling')
@@ -184,16 +195,16 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="Unit" class="form-label">Discount</label><br>
+                                                    <label for="" class="form-label">Discount</label><br>
                                                     <input class="form-control" value="{{old('discount')}}" type="number" id="" name="discount" />
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-12 mb-3">
-                                                    <label for="Unit" class="form-label">Video Embedded<span
+                                                    <label for="" class="form-label">Video Embedded<span
                                                             class="important">*:</span></label>
-                                                    <input class="form-control" value="{{old('video')}}" type="text" id="Unit" name="video">
+                                                    <input class="form-control" value="{{old('video')}}" type="text" id="text" name="video">
                                                 </div>
                                             </div>
 

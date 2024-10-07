@@ -52,8 +52,7 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-5">
-                            <a href="#" class="btn btn-primary mb-2" data-bs-toggle="modal"
-                                data-bs-target="#staticStoreModal"><i class="mdi mdi-plus-circle me-2"></i> Add
+                            <a href="{{route('dashboard.product.add')}}" class="btn btn-primary mb-2"><i class="mdi mdi-plus-circle me-2"></i> Add
                                 Product</a>
                         </div>
                         <div class="col-sm-7">
