@@ -11,6 +11,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "mindscms/laravelshoppingcart": "^2.1",
         "yajra/laravel-datatables-oracle": "10.3.1"
     },
     "require-dev": {
@@ -65,6 +66,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

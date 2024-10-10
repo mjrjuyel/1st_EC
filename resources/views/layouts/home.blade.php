@@ -30,10 +30,12 @@
         href="{{ asset('contents/frontend') }}/assets/styles/main_styles.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('contents/frontend') }}/assets/styles/responsive.css">
+    @yield('cart_css')
     <link rel="stylesheet" type="text/css"
         href="{{ asset('contents/frontend') }}/assets/styles/style.css">
 
-
+    <script src="http://localhost:8000/contents/admin/assets/js/jquery.min.js"></script>
+    <script src="http://localhost:8000/contents/admin/assets/js/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -115,7 +117,7 @@
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
-                                <div class="logo"><a href="{{ route('.') }}">OnTest</a></div>
+                                <div class="logo"><a href="{{ route('.') }}">Style & Gadgets</a></div>
                             </div>
                         </div>
                         <!-- Search -->
@@ -173,16 +175,22 @@
                                     </div>
                                 </div>
                                 <!-- Cart -->
+                                @if(Auth::guard('customer')->check())
+                                    @php
+                                            
+                                    @endphp
+                                @endif
                                 <div class="cart">
                                     <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                         <div class="cart_icon">
                                             <img src="{{ asset('contents/frontend') }}/assets/images/cart.png"
                                                 alt="">
-                                            <div class="cart_count"><span>10</span></div>
+                                            <div class="cart_count"><span>{{ Cart::count() }}</span></div>
                                         </div>
                                         <div class="cart_content">
-                                            <div class="cart_text"><a href="#">Cart</a></div>
-                                            <div class="cart_price">$85</div>
+                                            <div class="cart_text"><a
+                                                    href="{{ route('allcart') }}">Cart</a></div>
+                                            <div class="cart_price">${{ Cart::subtotal() }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -193,91 +201,7 @@
             </div>
             <!-- Main Navigation -->
             @include('layouts.section_divide.main_nav')
-            <!-- Menu -->
-
-            <!-- <div class="page_menu">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						
-						<div class="page_menu_content">
-							
-							<div class="page_menu_search">
-								<form action="#">
-									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
-								</form>
-							</div>
-							<ul class="page_menu_nav">
-								<li class="page_menu_item has-children">
-									<a href="#">Language<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Currency<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item">
-									<a href="#">Home<i class="fa fa-angle-down"></i></a>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
-										<li class="page_menu_item has-children">
-											<a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
-											<ul class="page_menu_selection">
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-											</ul>
-										</li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item has-children">
-									<a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
-									<ul class="page_menu_selection">
-										<li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
-									</ul>
-								</li>
-								<li class="page_menu_item"><a href="blog.html">blog<i class="fa fa-angle-down"></i></a></li>
-								<li class="page_menu_item"><a href="contact.html">contact<i class="fa fa-angle-down"></i></a></li>
-							</ul>
-							
-							<div class="menu_contact">
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{{ asset('contents/frontend') }}/assets/images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{{ asset('contents/frontend') }}/assets/images/mail_white.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#fd9b9c8e898e9c91988ebd9a909c9491d39e9290"><span class="__cf_email__" data-cfemail="5f393e2c2b2c3e333a2c1f38323e3633713c3032">[email&#160;protected]</span></a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-
         </header>
-
-
         @yield('content')
         @yield('product')
         <!-- Footer -->
@@ -367,15 +291,13 @@
                         <div
                             class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
                             <div class="copyright_content">
-                                Copyright &copy;<script data-cfasync="false"
-                                    src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-                                </script>
+                                Copyright &copy;
                                 <script>
                                     document.write(new Date().getFullYear());
 
                                 </script> All rights reserved | This template is made with <i class="fa fa-heart"
                                     aria-hidden="true"></i> by <a href="https://templatespoint.net/"
-                                    target="_blank">TemplatesPoint</a>
+                                    target="_blank">Styles and Gadgets</a>
                             </div>
                             <div class="logos ml-sm-auto">
                                 <ul class="logos_list">
@@ -421,6 +343,7 @@
     <script src="{{ asset('contents/frontend') }}/assets/plugins/easing/easing.js"></script>
     @yield('product_js')
     @yield('login_js')
+    @yield('cart_js')
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script src="{{ asset('contents/frontend') }}/assets/js/custom.js"></script>

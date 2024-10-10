@@ -2142,27 +2142,27 @@ select option
 .rating_r i::before
 {
 	font-family: 'FontAwesome';
-	content: "\f006";
+	content: "💕";
 	font-style: normal;
 	font-size: 19px;
 	margin-right: 4px;
 	color: #f5e211;
 }
-.rating_r_1 i:first-child::before{content: "\f005";}
-.rating_r_2 i:first-child::before{content: "\f005";}
-.rating_r_2 i:nth-child(2)::before{content: "\f005";}
-.rating_r_3 i:first-child::before{content: "\f005";}
-.rating_r_3 i:nth-child(2)::before{content: "\f005";}
-.rating_r_3 i:nth-child(3)::before{content: "\f005";}
-.rating_r_4 i:first-child::before{content: "\f005";}
-.rating_r_4 i:nth-child(2)::before{content: "\f005";}
-.rating_r_4 i:nth-child(3)::before{content: "\f005";}
-.rating_r_4 i:nth-child(4)::before{content: "\f005";}
-.rating_r_5 i:first-child::before{content: "\f005";}
-.rating_r_5 i:nth-child(2)::before{content: "\f005";}
-.rating_r_5 i:nth-child(3)::before{content: "\f005";}
-.rating_r_5 i:nth-child(4)::before{content: "\f005";}
-.rating_r_5 i:nth-child(5)::before{content: "\f005";}
+.rating_r_1 i:first-child::before{content: "🔆";}
+.rating_r_2 i:first-child::before{content: "🔆";}
+.rating_r_2 i:nth-child(2)::before{content: "🔆";}
+.rating_r_3 i:first-child::before{content: "🔆";}
+.rating_r_3 i:nth-child(2)::before{content: "🔆";}
+.rating_r_3 i:nth-child(3)::before{content: "🔆";}
+.rating_r_4 i:first-child::before{content: "🔆";}
+.rating_r_4 i:nth-child(2)::before{content: "🔆";}
+.rating_r_4 i:nth-child(3)::before{content: "🔆";}
+.rating_r_4 i:nth-child(4)::before{content: "🔆";}
+.rating_r_5 i:first-child::before{content: "🔆";}
+.rating_r_5 i:nth-child(2)::before{content: "🔆";}
+.rating_r_5 i:nth-child(3)::before{content: "🔆";}
+.rating_r_5 i:nth-child(4)::before{content: "🔆";}
+.rating_r_5 i:nth-child(5)::before{content: "🔆";}
 .banner_2_button
 {
 	margin-top: 43px;

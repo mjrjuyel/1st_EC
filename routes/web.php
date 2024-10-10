@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\Frontend\CartController;
 
 // Customer Auth Controller
 use App\Http\Controllers\CustomerAuth\LoginController;
@@ -58,6 +59,23 @@ Route::middleware('auth.customer')->group(function(){
 
     // ======= wish list 
     Route::get('product/wishlist/{id}',[ReviewController::class,'wishlist'])->name('product.wishlist');
+    // Product Review 
+    Route::post('product/review/add',[ReviewController::class,'addReview'])->name('product.review.add');
+    // ======= cart Product
+    Route::post('product/cart/add',[CartController::class,'cartAdd'])->name('product.cart.add');
+    Route::get('/allcart',[CartController::class,'cartAll'])->name('allcart');
+    Route::get('/cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
+    Route::get('/cart/updateqty/{rowId}/{qty}',[CartController::class,'updateqty'])->name('cart.updateqty');
+    Route::get('/cart/updatesize/{rowId}/{size}',[CartController::class,'updatesize'])->name('cart.updatesize');
+    Route::get('/cart/updatecolor/{rowId}/{color}',[CartController::class,'updateColor'])->name('cart.updatecolor');
+    Route::get('/cart/destroy',[CartController::class,'destroyCart'])->name('cart.destroy');
+    Route::get('/cart/color',function(){
+        
+        // $color = $thumbnail->options->color;
+        return response()->json(Cart::content());
+    });
+
+    
 });
 
 // Route::prefix('customer')->name('customer.')->group(function () {

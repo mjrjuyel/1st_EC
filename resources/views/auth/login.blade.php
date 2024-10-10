@@ -28,8 +28,8 @@
 
                         <!-- Logo -->
                         <div class="card-header pt-4 pb-4 text-center bg-primary">
-                            <a href="index.html">
-                                <span><img src="{{asset('contents/admin')}}/assets//images/logo.png" alt="" height="18"></span>
+                        <a href="{{route('.')}}" class="logo-light">
+                                <span>Style & Gadgets</span>
                             </a>
                         </div>
 

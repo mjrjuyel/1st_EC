@@ -60,17 +60,58 @@
                 <hr>
 
                 <div class="">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <label>Review:</label>
-                        <input type="text" class="form-input" name="review">
-                        <label>star:</label>
-                        <input type="number" class="form-input" name="star">
-                        <label>Image:</label>
-                        <input type="file" class="form-input" name="pic1">
-                        <label>Image2:</label>
-                        <input type="file" class="form-input" name="pic2">
+                    <form action="{{ route('product.review.add') }}" method="post"
+                        enctype="multipart/form-data">
+                        <div class="wrapper">
+                            <div class="master">
+                                <h3>Review And rating</h3>
+                                <p>How was your experience about our product?</p>
 
-                        <button type="submit">submit</button>
+                                <div class="rating-component">
+                                    <div class="status-msg">
+                                        <label>
+                                            <input class="rating_msg" type="hidden" name="rating_msg" value="" />
+                                        </label>
+                                    </div>
+                                    <div class="stars-box">
+                                        <i class="star fa fa-star" title="1 star" data-message="Poor"
+                                            data-value="1"></i>
+                                        <i class="star fa fa-star" title="2 stars" data-message="Too bad"
+                                            data-value="2"></i>
+                                        <i class="star fa fa-star" title="3 stars" data-message="Average quality"
+                                            data-value="3"></i>
+                                        <i class="star fa fa-star" title="4 stars" data-message="Nice"
+                                            data-value="4"></i>
+                                        <i class="star fa fa-star" title="5 stars" data-message="very good qality"
+                                            data-value="5"></i>
+                                    </div>
+                                    <div class="starrate">
+                                        <label>
+                                            <input class="ratevalue" type="number" name="rate_value" value="0" min="1"
+                                                max="5" step="1" />
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="tags-box">
+                                    <input type="text" class="tag form-control" name="comment" id="inlineFormInputName"
+                                        placeholder="please enter your review">
+                                    <input type="hidden" name="product_id" value="{{ $sinpro->id }}" />
+                                </div>
+
+                                <div class="button-box">
+                                    <input type="submit" class=" done btn btn-warning" value="Add review" />
+                                </div>
+
+                                <div class="submited-box">
+                                    <div class="loader"></div>
+                                    <div class="success-message">
+                                        Thank you!
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </form>
                 </div>
                 <hr>
@@ -120,37 +161,46 @@
                         </h4>
                     @else
                         <h4 class="banner_price" style="margin:10px 0px 10px;">
-                            <span>${{ $sinpro->pro_selling_price }}</span>${{ $sinpro->pro_discount_price }}</h4>
+                            ${{ $sinpro->pro_discount_price }}<span
+                                style="margin-left:5px;">${{ $sinpro->pro_selling_price }}</span></h4>
                     @endif
 
                 </div>
-                <form action="" method="">
-                    @if($sinpro->pro_stock_quantity != '')
-                        <div><span class="">Quantity:</div>
-                        <div class="custom-number-input">
-                            <button class="decrement">-</button>
-                            <input type="number" name="quantity" value="1" min="1" max="100" step="1">
-                            <button class="increment">+</button>
-                        </div>
+                <form action="{{ route('product.cart.add') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $sinpro->id }}">
+                    @if($sinpro->pro_discount_price != null)
+                        <input type="hidden" name="price" value="{{ $sinpro->pro_discount_price }}">
                     @else
+                        <input type="hidden" name="price" value="{{ $sinpro->pro_selling_price }}">
+                    @endif
+
+                    @if($sinpro->pro_stock_quantity < 1)
                         <div><span class="">Quantity:</div>
                         <div class="custom-number-input">
                             <button class="decrement">-</button>
                             <span class="text-danger">Out Of Stock</span>
                             <button class="increment">+</button>
                         </div>
+                    @else
+                        <div><span class="">Quantity:</div>
+                        <div class="custom-number-input">
+                            <span class="decrement">-</span>
+                            <input type="number" name="quantity" value="1" min="1" max="100" step="1">
+                            <span class="increment">+</span>
+                        </div>
                     @endif
                     <br>
                     @php
                         $color = explode(',',$sinpro->pro_color);
-
                         $size = explode(',',$sinpro->pro_size);
                     @endphp
 
                     @isset($sinpro->pro_color)
                         <div><span class="">Color:</div>
                         <div class="custom-number-input">
-                            <select type="text" class="form-select form-control" style="min-width:100px;">
+                            <select type="text" class="form-select form-control" name="color"
+                                style="width:100px; display:inline-block;">
                                 @foreach($color as $color)
                                     <option value="{{ $color }}">{{ $color }}</option>
                                 @endforeach
@@ -161,7 +211,8 @@
                     @isset($sinpro->pro_size)
                         <div><span class="">size:</div>
                         <div class="custom-number-input">
-                            <select type="text" class="form-control" style="min-width:100px;">
+                            <select type="number" class="form-control" name="size"
+                                style="width:100px; display:inline-block;">
                                 @foreach($size as $size)
                                     <option value="{{ $size }}">{{ $size }}</option>
                                 @endforeach
@@ -169,7 +220,8 @@
                         </div>
                     @endisset
                     <br>
-                    <div class="buttons"> <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>
+                    <div class="buttons"> <button type="submit" class="btn btn-outline-warning btn-long cart">Add to
+                            Cart</button>
                         <button class="btn btn-warning btn-long buy">Buy it Now</button>
                         <a href="{{ route('product.wishlist',$sinpro->id) }}"
                             class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </a>
@@ -235,22 +287,23 @@
                                     <div class="card-body">
                                         <h6 class="card-title">@if($simi->pro_discount_price != '')
                                             ${{ $simi->pro_discount_price }} @else ${{ $simi->pro_selling_price }}
-                                            @endif
-                                        </h6>
-                                    </div>
-                                </div>
-                            </a>
-                        @endforeach
-                    @endif
+                        @endif
+                        </h6>
                 </div>
             </div>
+            </a>
+            @endforeach
+            @endif
         </div>
     </div>
-    <hr>
+</div>
+</div>
+<hr>
 </div>
 @endsection
 @section('product_js')
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=">
+</script>
 <script src='https://sachinchoolur.github.io/lightslider/dist/js/lightslider.js'></script>
 <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'>
 </script>
@@ -263,14 +316,102 @@
         thumbItem: 6
     });
 
+    // product Review Code
+    // $(".rating-component .star").on("mouseover", function () {
+    //     var onStar = parseInt($(this).data("value"), 10); //
+    //     $(this).parent().children("i.star").each(function (e) {
+    //         if (e < onStar) {
+    //             $(this).addClass("hover");
+    //         } else {
+    //             $(this).removeClass("hover");
+    //         }
+    //     });
+    // }).on("mouseout", function () {
+    //     $(this).parent().children("i.star").each(function (e) {
+    //         $(this).removeClass("hover");
+    //     });
+    // });
+
+    // $(".rating-component .stars-box .star").on("click", function () {
+    //     var onStar = parseInt($(this).data("value"), 10);
+    //     var stars = $(this).parent().children("i.star");
+    //     var ratingMessage = $(this).data("message");
+
+    //     var msg = "";
+    //     if (onStar > 1) {
+    //         msg = onStar;
+    //     } else {
+    //         msg = onStar;
+    //     }
+    //     $('.rating-component .starrate .ratevalue').val(msg);
+    //     $(".fa-smile-wink").show();
+    //     $(".button-box .done").show();
+
+    //     if (onStar === 5) {
+    //         $(".button-box .done").removeAttr("disabled");
+    //     } else {
+    //         $(".button-box .done").attr("disabled", "true");
+    //     }
+
+    //     for (i = 0; i < stars.length; i++) {
+    //         $(stars[i]).removeClass("selected");
+    //     }
+
+    //     for (i = 0; i < onStar; i++) {
+    //         $(stars[i]).addClass("selected");
+    //     }
+
+    //     $(".status-msg .rating_msg").val(ratingMessage);
+    //     $(".status-msg").html(ratingMessage);
+    //     $("[data-tag-set]").hide();
+    //     $("[data-tag-set=" + onStar + "]").show();
+    // });
+
+    // $(".feedback-tags  ").on("click", function () {
+    //     var choosedTagsLength = $(this).parent("div.tags-box").find("input").length;
+    //     choosedTagsLength = choosedTagsLength + 1;
+
+    //     if ($(this).hasClass("choosed")) {
+    //         $(this).removeClass("choosed");
+    //         choosedTagsLength = choosedTagsLength - 2;
+    //     } else {
+    //         $(this).addClass("choosed");
+    //         $(".button-box .done").removeAttr("disabled");
+    //     }
+
+    //     console.log(choosedTagsLength);
+
+    //     if (choosedTagsLength <= 0) {
+    //         $(".button-box .done").attr("enabled", "false");
+    //     }
+    // });
+
+    // $(".compliment-container .fa-smile-wink").on("click", function () {
+    //     $(this).fadeOut("slow", function () {
+    //         $(".list-of-compliment").fadeIn();
+    //     });
+    // });
+
+    $(".done").on("click", function () {
+        $(".rating-component").hide();
+        $(".feedback-tags").hide();
+        $(".button-box").hide();
+        $(".submited-box").show();
+        $(".submited-box .loader").show();
+
+        setTimeout(function () {
+            $(".submited-box .loader").hide();
+            $(".submited-box .success-message").show();
+        }, 1500);
+    });
+
+    // number increment
     const incrementBtn = document.querySelector('.increment');
     const descrementBtn = document.querySelector('.decrement');
     const numberInput = document.querySelector('input[type="number"]');
-
     incrementBtn.addEventListener('click', () => {
         numberInput.stepUp();
     });
-
     decrementBtn.addEventListener('click', () => {
         numberInput.stepDown();
     });

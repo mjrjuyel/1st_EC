@@ -25,11 +25,11 @@
 
                         <!-- Logo -->
                         <div class="auth-brand text-center text-lg-start">
-                            <a href="index.html" class="logo-dark">
-                                <span><img src="{{asset('contents/admin')}}/assets//images/logo-dark.png" alt="" height="18"></span>
+                            <a href="{{route('.')}}" class="logo-dark">
+                                <span>Style & Gadgets</span>
                             </a>
-                            <a href="index.html" class="logo-light">
-                                <span><img src="{{asset('contents/admin')}}/assets//images/logo.png" alt="" height="18"></span>
+                            <a href="{{route('.')}}" class="logo-light">
+                                <span>Style & Gadgets</span>
                             </a>
                         </div>
 
@@ -70,7 +70,7 @@
 
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                                    <input type="checkbox" class="form-check-input" name="admin" id="checkbox-signup">
                                     <label class="form-check-label" for="checkbox-signup">I accept <a href="javascript: void(0);" class="text-muted">Terms and Conditions</a></label>
                                 </div>
                             </div>

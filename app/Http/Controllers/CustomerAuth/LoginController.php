@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
+use App\Models\Product;
+use Cart;
 
 class LoginController extends Controller
 {
@@ -30,6 +32,13 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard('customer')->logout();
+        Cart::destroy();
+        $all = Product::where('pro_status','1')->where('pro_views','>=','0')->get();
+        foreach($all as $pro){
+            Product::where('id',$pro->id)->update([
+                'pro_views'=>0
+            ]);
+        }
         return redirect()->route('.');
     }
 }

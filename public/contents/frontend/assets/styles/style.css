@@ -1,0 +1,7 @@
+/*==== Error Message For login or Register-==== */
+
+.invalid_msg{
+    color: brown;
+    margin-left: 5px;
+    font-style: italic;
+}
