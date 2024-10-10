@@ -59,6 +59,9 @@ Route::middleware('auth.customer')->group(function(){
 
     // ======= wish list 
     Route::get('product/wishlist/{id}',[ReviewController::class,'wishlist'])->name('product.wishlist');
+    Route::get('wishlist',[ReviewController::class,'wishlistAll'])->name('wishlist');
+    Route::get('remove/wishlist/{id}',[ReviewController::class,'wishRemove'])->name('remove.wishlist');
+    Route::get('delete/wishlist',[ReviewController::class,'wishDelete'])->name('delete.wishlist');
     // Product Review 
     Route::post('product/review/add',[ReviewController::class,'addReview'])->name('product.review.add');
     // ======= cart Product

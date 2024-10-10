@@ -13,5 +13,12 @@ class WishList extends Model
         'created_at'=>'datetime',
         'updated_at'=>'datetime'
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class,'product_id');
+    }
+    public function customer(){
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
     use HasFactory;
 }

@@ -1,5 +1,29 @@
 @extends('layouts.home')
 @section('content')
+@if(Session::has('success'))
+    <script type="text/javascript">
+        swal({
+            title: "Success!",
+            text: "{{ Session::get('success') }}",
+            icon: "success",
+            button: "OK",
+            timer: 5000,
+        });
+
+    </script>
+@endif
+@if(Session::has('error'))
+    <script type="text/javascript">
+        swal({
+            title: "Opps!",
+            text: "{{ Session::get('error') }}",
+            icon: "error",
+            button: "OK",
+            timer: 5000,
+        });
+
+    </script>
+@endif
 <!-- Banner -->
 <div class="banner">
     <div class="banner_background"
@@ -373,7 +397,6 @@
                                                     href="{{ route('product.wishlist',$popular->id) }}"><i
                                                         class="ri-heart-3-fill"></i></a></div>
                                             <ul class="product_marks">
-
                                                 @if($popular->pro_discount_price != null)
                                                     @php
                                                         $benefit =$popular->pro_selling_price -

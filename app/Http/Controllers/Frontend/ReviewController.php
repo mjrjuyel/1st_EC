@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\WishList;
 use App\Models\Review;
 use Carbon\Carbon;
+use Session;
 
 class ReviewController extends Controller
 {
@@ -19,7 +20,7 @@ class ReviewController extends Controller
             session()->flash('error', 'Already have added this product!');
             return redirect()->back();
         }else{
-            $add =Wishlist::create([
+            $add =WishList::create([
                 'product_id'=>$id,
                 'customer_id'=>Auth::guard('customer')->user()->id,
                 'created_at'=>carbon::now(),
@@ -28,6 +29,28 @@ class ReviewController extends Controller
                 session()->flash('success','Product Added To the wishlist!');
                 return redirect()->back();
             }
+        }
+    }
+
+    public function wishlistall(){
+        $wishlist = WishList::with(['product','customer'])->where('customer_id',Auth::guard('customer')->user()->id)->get();
+        // return $wishlist;
+        return view('frontend.wishlist',compact('wishlist'));
+    }
+
+    public function wishRemove($id){
+        $delete =WishList::where('id',$id)->where('customer_id',Auth::guard('customer')->user()->id)->delete();
+        if($delete){
+            Session::flash('error','Remove Successfully');
+            return redirect()->back();
+        }
+    }
+
+    public function wishDelete(){
+        $delete =WishList::where('customer_id',Auth::guard('customer')->user()->id)->delete();
+        if($delete){
+            Session::flash('error','Delete All WishList Items!');
+            return redirect()->route('.');
         }
     }
 

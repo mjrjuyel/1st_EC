@@ -166,7 +166,7 @@
                                         @endphp
                                     @endif
                                     <div class="wishlist_content">
-                                        <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                                        <div class="wishlist_text"><a href="{{route('wishlist')}}">Wishlist</a></div>
                                         @if(Auth::guard('customer')->check())
                                             <div class="wishlist_count">{{ $wishlist }}</div>
                                         @else
