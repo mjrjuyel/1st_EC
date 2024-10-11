@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use App\Models\Product;
+use App\Models\Brand;
 
 class HomeController extends Controller
 {
@@ -36,6 +38,27 @@ class HomeController extends Controller
 
     public function login(){
         return view('frontend.login');
+    }
+
+    //category wise product view
+
+    public function categoryProduct($id){
+        $categoryone=Category::where('id',$id)->first();
+        $subcat = SubCategory::where('subcat_status','1')->where('cat_id',$id)->latest('id')->get();
+        $brand = Brand::where('brand_status','1')->latest('id')->get();
+        $products =Product::where('pro_status','1')->where('category_id',$id)->latest('id')->simplePaginate(20);
+        $ranproducts =Product::where('pro_status','1')->inRandomOrder()->limit('10')->latest('id')->get();
+        // return $products;
+        return view('frontend.category_shop',compact(['categoryone','subcat','brand','products','ranproducts']));
+    }
+
+    public function subCategoryProduct($id){
+        $subcat=SubCategory::where('id',$id)->first();
+        $childcat = ChildCategory::where('child_cat_status','1')->where('subcat_id',$id)->latest('id')->get();
+        $brand = Brand::where('brand_status','1')->latest('id')->get();
+        $products =Product::where('pro_status','1')->where('sub_category_id',$id)->latest('id')->simplePaginate(20);
+        $ranproducts =Product::where('pro_status','1')->inRandomOrder()->limit('10')->latest('id')->get();
+        return view('frontend.subcategory_shop',compact(['childcat','subcat','brand','products','ranproducts']));
     }
 
 }

@@ -14,18 +14,20 @@
                         <ul class="cat_menu">
                             @foreach($category as $cat)
                                 <li class="hassubs">
-                                    <a href="#">{{ $cat->cat_title }}<i class="ri-arrow-right-line"></i></a>
+                                    <a href="{{route('category.product',$cat->id)}}">{{ $cat->cat_title }}<i class="ri-arrow-right-line"></i></a>
                                     <ul>
                                         @foreach($cat->subcategory as $subcat)
                                             <li class="hassubs">
-                                                <a href="#">{{ $subcat->subcat_title }}<i
+                                                <a href="{{route('category.subcategory.product',$subcat->id)}}">{{ $subcat->subcat_title }}<i
                                                         class="fas fa-chevron-right"></i></a>
-                                        @php 
-                                        $childcat = DB::table('child_categories')->where('child_cat_status','1')->where('subcat_id',$subcat->id)->get();
-                                        @endphp
+                                                @php
+                                                    $childcat =
+                                                    DB::table('child_categories')->where('child_cat_status','1')->where('subcat_id',$subcat->id)->get();
+                                                @endphp
                                                 <ul>
                                                     @foreach($childcat as $child)
-                                                        <li><a href="#">{{ $child->child_cat_title }}<i class="fas fa-chevron-right"></i></a>
+                                                        <li><a href="#">{{ $child->child_cat_title }}<i
+                                                                    class="fas fa-chevron-right"></i></a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -42,7 +44,8 @@
 
                     <div class="main_nav_menu ml-auto">
                         <ul class="standard_dropdown main_nav_dropdown">
-                            <li><a href="{{route('.')}}">Home<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="{{ route('.') }}">Home<i class="fas fa-chevron-down"></i></a>
+                            </li>
                             <li class="hassubs">
                                 <a href="#">Featured Brands<i class="ri-arrow-down-double-line"></i></a>
                                 <ul>

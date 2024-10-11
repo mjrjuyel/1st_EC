@@ -43,6 +43,12 @@ Route::get('/product',function(){
 
 Route::get('/',[HomeController::class,'index'])->name('.');
 Route::get('/product/{slug}',[HomeController::class,'view'])->name('product');
+// Route::get('/shop',function(){
+//     return view('frontend.shop');
+// })->name('shop');
+// ======category related prodct view 
+Route::get('/category/product/{id}',[HomeController::class,'categoryProduct'])->name('category.product');
+Route::get('/category/subcategory/product/{id}',[HomeController::class,'subCategoryProduct'])->name('category.subcategory.product');
 
 // Customer login Route
 Route::get('/customer/login',[LoginController::class,'showLoginForm'])->name('customer.login');

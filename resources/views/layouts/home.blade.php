@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('contents/frontend') }}/assets/styles/responsive.css">
     @yield('cart_css')
+    @yield('category_css')
     <link rel="stylesheet" type="text/css"
         href="{{ asset('contents/frontend') }}/assets/styles/style.css">
 
@@ -344,6 +345,7 @@
     @yield('product_js')
     @yield('login_js')
     @yield('cart_js')
+    @yield('category_js')
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script src="{{ asset('contents/frontend') }}/assets/js/custom.js"></script>

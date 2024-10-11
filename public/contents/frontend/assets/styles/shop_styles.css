@@ -1259,7 +1259,7 @@ select option
 .shop
 {
 	background: #FFFFFF;
-	padding-top: 80px;
+	padding-top: 32px;
 	padding-bottom: 139px;
 }
 .shop_content
@@ -1590,7 +1590,7 @@ select option
 .page_prev, 
 .page_next
 {
-	width: 50px;
+	width: 40px;
 	height: 100%;
 	border: solid 1px #e5e5e5;
 	border-radius: 5px;
@@ -1599,8 +1599,8 @@ select option
 .page_prev i, 
 .page_next i
 {
-	font-size: 12px;
-	color: #e5e5e5;
+	font-size: 26px;
+	color: #a97a7a;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
@@ -1941,8 +1941,8 @@ select option
 .brands
 {
 	width: 100%;
-	padding-top: 90px;
-	padding-bottom: 90px;
+	padding-top: 10px;
+	padding-bottom: 50px;
 }
 .brands_slider_container
 {
