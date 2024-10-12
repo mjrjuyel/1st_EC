@@ -116,7 +116,11 @@
 
                     <div class="cart_buttons">
                         <button type="button" class="button cart_button_clear destroy">Remove all</button>
-                        <button type="button" class="button cart_button_checkout">Add to Cart</button>
+                        @if(Cart::subtotal() > 0)
+                        <a href="{{route('checkout')}}" type="button" class="button cart_button_checkout">CheckOut</a>
+                        @else
+                        <a href="#" type="button" class="button cart_button_checkout" >Nothing</a>
+                        @endif
                     </div>
                 </div>
             </div>

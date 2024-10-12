@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 
 // Customer Auth Controller
 use App\Http\Controllers\CustomerAuth\LoginController;
@@ -43,9 +44,7 @@ Route::get('/product',function(){
 
 Route::get('/',[HomeController::class,'index'])->name('.');
 Route::get('/product/{slug}',[HomeController::class,'view'])->name('product');
-// Route::get('/shop',function(){
-//     return view('frontend.shop');
-// })->name('shop');
+
 // ======category related prodct view 
 Route::get('/category/product/{id}',[HomeController::class,'categoryProduct'])->name('category.product');
 Route::get('/category/subcategory/product/{id}',[HomeController::class,'subCategoryProduct'])->name('category.subcategory.product');
@@ -78,13 +77,22 @@ Route::middleware('auth.customer')->group(function(){
     Route::get('/cart/updatesize/{rowId}/{size}',[CartController::class,'updatesize'])->name('cart.updatesize');
     Route::get('/cart/updatecolor/{rowId}/{color}',[CartController::class,'updateColor'])->name('cart.updatecolor');
     Route::get('/cart/destroy',[CartController::class,'destroyCart'])->name('cart.destroy');
+    
+    // pruduct checkOut 
+    Route::get('/checkout',[CheckoutController::class,'checkoutAll'])->name('checkout');
+
+    // coupon Code Apply
+    Route::get('/coupon/apply',[CheckoutController::class,'couponApply'])->name('coupon.apply');
+    Route::get('/coupon/remove',[CheckoutController::class,'couponRemove'])->name('coupon.remove');
+
+    // order Place
+    Route::post('order/place',[CheckoutController::class,'OrderPlace'])->name('order.place');
+
     Route::get('/cart/color',function(){
         
         // $color = $thumbnail->options->color;
         return response()->json(Cart::content());
-    });
-
-    
+    }); 
 });
 
 // Route::prefix('customer')->name('customer.')->group(function () {

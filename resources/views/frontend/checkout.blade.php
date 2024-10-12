@@ -33,87 +33,164 @@
 <div class="cart_section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
+            <div class="col-lg-6">
                 <div class="cart_container">
-                    <div class="cart_title">Shopping Cart</div>
-
-                    <div class="cart_items">
-                        <ul class="cart_list">
-                            @foreach($allcart as $cart)
-                                <li class="cart_item clearfix">
-                                    <div class="cart_item_image"><img
-                                            src="{{ asset('uploads/admin/product/'.$cart->options->thumbnail)}}"
-                                            alt=""></div>
-                                    <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-                                        <div class="cart_item_name cart_info_col">
-                                            <div class="cart_item_title">Name</div>
-                                            <div class="cart_item_text">{{ $cart->name }}</div>
-                                        </div>
-                                        <div class="cart_item_color cart_info_col">
-                                            @php
-                                            $product=App\Models\Product::where('id',$cart->id)->first();
-                                            $color=explode(',',$product->pro_color);
-                                            $size =explode(',',$product->pro_size);
-                                            @endphp
-                                            <div class="cart_item_title">Color</div>
-                                            <div class="cart_item_text">
-                                                <select type="text" class="form-control color"
-                                                    name="color" style="min-width: 70px;">
-                                                    @foreach($color as $color)
-                                                    <option value="{{ $color }}" @if($color == $cart->options->color) Selected @endif>
-                                                        {{ substr($color,0,5) }}</option>
-                                                    @endforeach
-                                                </select></div>
-                                        </div>
-                                        <div class="cart_item_color cart_info_col">
-                                            <div class="cart_item_title">size</div>
-                                            <div class="cart_item_text">
-                                                <select type="number" class="form-control size"
-                                                    name="size" style="width:100px;">
-                                                    @foreach($size as $size)
-                                                    <option value="{{ $size }}" @if($size == $cart->options->size) Selected @endif>
-                                                        {{ $size }}</option>
-                                                    @endforeach
-                                                </select></div>
-                                        </div>
-                                        <div class="cart_item_quantity cart_info_col">
-                                            <div class="cart_item_title">Quantity</div>
-                                            <div class="cart_item_text">
-												<input type="number" class="form-control qty" name="quantity" style="width:100px;" value="{{ $cart->qty }}"
-                                                    min="1" max="100">
-												<input type="hidden" name="id" value="{{$cart->rowId}}" id="productId">
-												</div>
-                                        </div>
-                                        <div class="cart_item_price cart_info_col">
-                                            <div class="cart_item_title">Price</div>
-                                            <div class="cart_item_text">${{ $cart->price }}</div>
-                                        </div>
-                                        <div class="cart_item_total cart_info_col">
-                                            <div class="cart_item_title">Total</div>
-                                            <div class="cart_item_text">
-                                                ${{ number_format($cart->price*$cart->qty,2) }}</div>
-                                        </div>
-                                        <div class="cart_item_total cart_info_col">
-                                            <div class="cart_item_title">Action</div>
-                                            <div class="cart_item_text"><a
-                                                    href="{{ route('cart.remove',$cart->rowId) }}"
-                                                    class="text-danger"><i class="ri-xrp-fill"></i></a></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-
-                    <!-- Order Total -->
-                    <div class="order_total">
-                        <div class="order_total_content text-md-right">
-                            <div class="order_total_title">Order Total:</div>
-                            <div class="order_total_amount">${{Cart::total();}}</div>
+                    <div class="cart_title">Checkout Product</div>
+                    <div class="card p-2">
+                        <div class="text-center">
+                            <h3 class="text-primary">Billing Address</h3>
                         </div>
+                        <form action="{{ route('order.place') }}" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="">Name:</label>
+                                        <input class="form-control" type="text" name="c_name"
+                                            value="{{ Auth::guard('customer')->user()->name }}">
+                                        @error('c_name')
+                                            <strong class="text-danger pl-2 pt-1">{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="">Phone:</label>
+                                        <input class="form-control" type="text" name="c_phone"
+                                            value="{{ old('c_phone') }}" required="required">
+                                        @error('c_phone')
+                                            <strong class="text-danger pl-2 pt-1">{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="">Email:</label>
+                                        <input class="form-control" type="email" name="c_email"
+                                            value="{{ Auth::guard('customer')->user()->email }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="">Country:</label>
+                                        <input class="form-control" type="text" name="c_country" value="Bangladesh">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="">Zip Code:</label>
+                                        <input class="form-control" type="text" name="c_zipcode"
+                                            value="{{ old('c_zipcode') }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="">Shipping Address:</label>
+                                        <input class="form-control" type="text" name="c_address" required="required"
+                                            value="{{ old('c_address') }}">
+                                        @error('c_address')
+                                            <strong class="text-danger pl-2 pt-1">{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 ml-5">
+                                    <h3 class="text-warning ml-n5">Payment Options :</h3>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentOption"
+                                            id="exampleRadios1" value="paypal">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Paypal
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentOption"
+                                            id="exampleRadios2" value="SSL_Commerze">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            SSL Commerze
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentOption"
+                                            id="exampleRadios3" value="COD">
+                                        <label class="form-check-label" for="exampleRadios3">
+                                            Cash On Deliver
+                                        </label>
+                                        @error('paymentOption')
+                                        <strong class="text-danger pl-2 pt-1">{{ $message }}</strong>
+                                        @enderror
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="form-group p-2">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Order Total -->
+
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card px-2 py-3">
+                    @if(!Session::has('coupon'))
+                        <form action="{{ route('coupon.apply') }}" method="get">
+                            <div class="form-group p-2">
+                                <div class="form-group">
+                                    <label>Coupon:<span class="text-primary btn">*Coupon Will Apply If The Total Price is More Than $500.<span></label>
+                                    <input type="text" class="form-control" name="coupon">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Apply Coupon</button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                    <h6 class="text-primary">Order Summary</h6>
+                    <div class="order_total_content text-md-right ">
+                        @if(Session::has('coupon'))
+                            <div class="order_total_title">
+                                Coupon:({{ Session::get('coupon')['name'] }})<a
+                                    href="{{ route('coupon.remove') }}"><span
+                                        class="text-danger px-2"><i class="ri-xrp-line"></i></span></a></div>
+                            <div class="order_total_amount">
+                                {{ Session::get('coupon')['discount'] }}.00
+                            </div>
+                        @else
+                            <div class="order_total_title">Coupon:</div>
+                            <div class="order_total_amount">00.00</div>
+                        @endif
                     </div>
 
+                    <div class="order_total_content text-md-right ">
+                        <div class="order_total_title">Tax:</div>
+                        <div class="order_total_amount">${{ Cart::tax(); }}</div>
+                    </div>
+                    <div class="order_total_content text-md-right ">
+                        <div class="order_total_title">Shipping Charge:</div>
+                        <div class="order_total_amount">$00.00</div>
+                    </div>
+
+                    <div class="order_total_content text-md-right ">
+
+                        @if(Session::has('coupon') && Session::get('coupon')['after_discount'] >= 500)
+                            <div class="order_total_title">Total:</div>
+                            <div class="order_total_amount">(${{ Cart::total() }} - ${{Session::get('coupon')['discount']}})</div>
+                            <div class="order_total_title">=</div>
+                            <div class="order_total_amount">
+                                {{ Session::get('coupon')['after_discount'] }}.00
+                            </div>
+                        @else
+                            <div class="order_total_title">Total:</div>
+                            <div class="order_total_amount">${{ Cart::total() }}</div>
+                        @endif
+                    </div>
                     <div class="cart_buttons">
                         <button type="button" class="button cart_button_clear destroy">Remove all</button>
                         <button type="button" class="button cart_button_checkout">Add to Cart</button>
@@ -161,69 +238,70 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-	$('body').on('change','.qty',function(){
-		let qty= $(this).val();
-		let rowId = $('#productId').val();
-		// alert(rowId);
-		$.ajax({
-            url:'{{url('cart/updateqty/')}}/'+ rowId +'/'+qty,
-            type:'get',
+    $('body').on('change', '.qty', function () {
+        let qty = $(this).val();
+        let rowId = $('#productId').val();
+        // alert(rowId);
+        $.ajax({
+            url: '{{ url('cart/updateqty/') }}/' + rowId + '/' + qty,
+            type: 'get',
             async: false,
-            success:function(response){
+            success: function (response) {
                 Swal.fire({
-                        icon: 'success',
-                        title: 'Updated!',
-                        text: 'Cart updated successfully!',
-                        showConfirmButton: true,
-                        timer: 1500 // Automatically close after 1.5 seconds
-                    });
+                    icon: 'success',
+                    title: 'Updated!',
+                    text: 'Cart updated successfully!',
+                    showConfirmButton: true,
+                    timer: 1500 // Automatically close after 1.5 seconds
+                });
                 location.reload();
             }
         });
-	});
+    });
 
-    $('body').on('change','.size',function(){
-		let size= $(this).val();
-		let rowId = $('#productId').val();
-		// alert(rowId);
-		$.ajax({
-            url:'{{url('cart/updatesize/')}}/'+ rowId +'/'+size,
-            type:'get',
+    $('body').on('change', '.size', function () {
+        let size = $(this).val();
+        let rowId = $('#productId').val();
+        // alert(rowId);
+        $.ajax({
+            url: '{{ url('cart/updatesize/') }}/' + rowId + '/' + size,
+            type: 'get',
             async: false,
-            success:function(response){
+            success: function (response) {
                 Swal.fire({
-                        icon: 'success',
-                        title: 'Updated!',
-                        text: 'Cart updated successfully!',
-                        showConfirmButton: true,
-                        timer: 1500 // Automatically close after 1.5 seconds
-                    });
+                    icon: 'success',
+                    title: 'Updated!',
+                    text: 'Cart updated successfully!',
+                    showConfirmButton: true,
+                    timer: 1500 // Automatically close after 1.5 seconds
+                });
                 location.reload();
             }
         });
-	});
+    });
 
-    $('body').on('change','.color',function(){
+    $('body').on('change', '.color', function () {
         let color = $(this).val();
         let rowId = $('#productId').val();
         // alert(rowId);
         $.ajax({
-            url:'{{url('cart/updatecolor/')}}/'+rowId+'/'+color,
-            type:'get',
-            async:false,
-            success:function(response){
+            url: '{{ url('cart/updatecolor/') }}/' + rowId + '/' + color,
+            type: 'get',
+            async: false,
+            success: function (response) {
                 location.reload();
             }
         })
     })
-    $('body').on('click','.destroy',function(){
+    $('body').on('click', '.destroy', function () {
         $.ajax({
-            url:'{{url('cart/destroy')}}',
-            type:'get',
-            success:function(response){
+            url: '{{ url('cart/destroy') }}',
+            type: 'get',
+            success: function (response) {
                 location.reload();
             }
         })
     })
+
 </script>
 @endsection
