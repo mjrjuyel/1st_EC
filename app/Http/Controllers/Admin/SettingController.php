@@ -65,4 +65,7 @@ class SettingController extends Controller
             return redirect()->back();
         }
     }
+
+    // payment gate ways banglas
+    
 }

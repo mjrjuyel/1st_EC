@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Brand;
@@ -76,9 +77,8 @@ class BrandController extends Controller
         // event Caling
         event(new BrandProcessed($event));
 
-
-            Session::flash('success','Brand has Created SuccessFully');
-            return redirect()->back();
+         Session::flash('success','Brand has Created SuccessFully');
+         return redirect()->back();
    }
 
    public function edit($slug){

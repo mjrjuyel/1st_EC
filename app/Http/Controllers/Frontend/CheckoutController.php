@@ -4,7 +4,9 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Mail\NvoiceOrderMail;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -101,6 +103,8 @@ class CheckoutController extends Controller
                 'created_at'=>Carbon::now(),
             ]);
         }
+
+        Mail::to($order->c_email)->send(new NvoiceOrderMail($order));
         // dd($insert);
         $content = Cart::content();
         // get order id Number

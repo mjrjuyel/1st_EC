@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CategoryTestMail;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -24,7 +26,7 @@ class CategoryController extends Controller
         $request->validate([
             'title'=>'required',
             'pic'=>'required',
-            'term'=>'required'
+            // 'term'=>'required'
         ]);
 
         if($request->hasFile('pic')){
@@ -46,6 +48,14 @@ class CategoryController extends Controller
             'cat_creator'=>Auth::user()->id,
             'created_at'=>carbon::now(),
         ]);
+
+        // dd($insert);
+        // $details = [
+        //     'title' => 'Test Email from Laravel',
+        //     'body' => 'This is a test email using Mailtrap.'
+        // ];
+
+        Mail::to('mjrjuyel8@gmail.com')->send(new CategoryTestMail($insert));
 
         if($insert){
             Session::flash('success','New Product Category Added');

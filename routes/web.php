@@ -163,6 +163,9 @@ Route::middleware(['auth','is_admin'])->group(function(){
         // SMTP Mailer 
         Route::get('/setting/smtp',[SettingController::class,'smtp'])->name('dashboard.setting.smtp');
         Route::post('/setting/smtp/update',[SettingController::class,'smtpUpdate'])->name('dashboard.setting.smtp.update');
+
+        Route::get('/setting/payment_gateway',[SettingController::class,'payment_gateway'])->name('dashboard.setting.payment_gateway');
+        Route::post('/setting/payment_gateway/update',[SettingController::class,'payment_gatewayUpdate'])->name('dashboard.setting.payment_gateway.update');
     });
 
     // WareHouse ============
