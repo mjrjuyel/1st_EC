@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seo;
 use App\Models\Smtp;
+use App\Models\PaymentGatewayBd;
 use Carbon\Carbon;
 use Session;
 use Auth;
@@ -67,5 +68,67 @@ class SettingController extends Controller
     }
 
     // payment gate ways banglas
-    
+    public function PaymentGatway(){
+        $amarpay = PaymentGatewayBd::first();
+        $ssl = PaymentGatewayBd::skip(1)->first();
+        // $surjopay = PaymentGatewayBd::skip(2)->first();
+        // return $ssl;
+        return view('admin.setting.payment.index',compact('amarpay','ssl'));
+    }
+
+    public function amarpayUpdate(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'storeid'=>'required',
+            'sigkey'=>'required',
+        ]);
+
+        $update=PaymentGatewayBd::where('id',$request->id)->update([
+            'payment_name'=>$request['name'],
+            'store_id'=>$request['storeid'],
+            'signature_key'=>$request['sigkey'],
+            'status'=>$request['check'],
+            'updated_at'=>Carbon::now(),
+        ]);
+        if($update){
+            Session::flash('success','payment Option Updated!');
+            return redirect()->back();
+        }
+    }
+
+    public function sslUpdate(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'storeid'=>'required',
+            'sigkey'=>'required',
+        ]);
+        $update=PaymentGatewayBd::where('id',$request['id'])->update([
+            'payment_name'=>$request['name'],
+            'store_id'=>$request['storeid'],
+            'signature_key'=>$request['sigkey'],
+            'status'=>$request['check'],
+            'updated_at'=>Carbon::now(),
+        ]);
+
+        if($update){
+            Session::flash('success','payment Option Updated!');
+            return redirect()->back();
+        }
+    }
+
+    public function surjopayUpdate(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'storeid'=>'required',
+            'sigkey'=>'required',
+        ]);
+
+        $update=PaymentGatewayBd::where('id',$request['id'])->update([
+            'payment_name'=>$request['name'],
+            'store_id'=>$request['storeid'],
+            'signature_key'=>$request['sigkey'],
+            'status'=>$request['check'],
+            'updated_at'=>Carbon::now(),
+        ]);
+    }
 }

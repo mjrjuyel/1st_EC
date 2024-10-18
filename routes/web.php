@@ -9,6 +9,8 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CustomerProfileController;
+use App\Http\Controllers\Frontend\OrderTrackController;
 
 // Customer Auth Controller
 use App\Http\Controllers\CustomerAuth\LoginController;
@@ -58,17 +60,24 @@ Route::post('/customer/register/insert',[RegisterController::class,'register'])-
 Route::middleware('auth.customer')->group(function(){
     // ===== logout Route
     Route::post('/customer/logout',[LoginController::class,'logout'])->name('customer.logout');
-    Route::get('/customer/profile',function(){
+    //     Customer profile Routes
+    Route::get('/customer',function(){
         return "this is profile";
-    })->name('customer.profile');
+    })->name('customer');
+    Route::get('/customer/profile/{slug}',[CustomerProfileController::class,'index'])->name('customer.profile');
+
+    // Order track
+    Route::get('/order/track/',[OrderTrackController::class,'track'])->name('order.track');
 
     // ======= wish list 
     Route::get('product/wishlist/{id}',[ReviewController::class,'wishlist'])->name('product.wishlist');
     Route::get('wishlist',[ReviewController::class,'wishlistAll'])->name('wishlist');
     Route::get('remove/wishlist/{id}',[ReviewController::class,'wishRemove'])->name('remove.wishlist');
     Route::get('delete/wishlist',[ReviewController::class,'wishDelete'])->name('delete.wishlist');
+
     // Product Review 
     Route::post('product/review/add',[ReviewController::class,'addReview'])->name('product.review.add');
+
     // ======= cart Product
     Route::post('product/cart/add',[CartController::class,'cartAdd'])->name('product.cart.add');
     Route::get('/allcart',[CartController::class,'cartAll'])->name('allcart');
@@ -88,8 +97,12 @@ Route::middleware('auth.customer')->group(function(){
     // order Place
     Route::post('order/place',[CheckoutController::class,'OrderPlace'])->name('order.place');
 
+    // amarpay payment gateway
+    Route::post('success',[CheckoutController::class,'success'])->name('success');
+    Route::post('fail',[CheckoutController::class,'fail'])->name('fail');
+    Route::get('cancel',[CheckoutController::class,'cancel'])->name('cancel');
+
     Route::get('/cart/color',function(){
-        
         // $color = $thumbnail->options->color;
         return response()->json(Cart::content());
     }); 
@@ -164,8 +177,12 @@ Route::middleware(['auth','is_admin'])->group(function(){
         Route::get('/setting/smtp',[SettingController::class,'smtp'])->name('dashboard.setting.smtp');
         Route::post('/setting/smtp/update',[SettingController::class,'smtpUpdate'])->name('dashboard.setting.smtp.update');
 
-        Route::get('/setting/payment_gateway',[SettingController::class,'payment_gateway'])->name('dashboard.setting.payment_gateway');
-        Route::post('/setting/payment_gateway/update',[SettingController::class,'payment_gatewayUpdate'])->name('dashboard.setting.payment_gateway.update');
+        Route::get('/setting/payment_gateway',[SettingController::class,'PaymentGatway'])->name('dashboard.setting.payment_gateway');
+
+        // amar pay payment update
+        Route::post('/setting/payment_gateway/amarpay-update',[SettingController::class,'amarpayUpdate'])->name('dashboard.setting.payment_gateway.amarpay-update');
+        Route::post('/setting/payment_gateway/ssl-update',[SettingController::class,'sslUpdate'])->name('dashboard.setting.payment_gateway.ssl-update');
+        Route::post('/setting/payment_gateway/surjopay-update',[SettingController::class,'surjopayUpdate'])->name('dashboard.setting.payment_gateway.surjopay-update');
     });
 
     // WareHouse ============

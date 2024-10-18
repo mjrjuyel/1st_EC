@@ -20,9 +20,13 @@ class HomeController extends Controller
         $popular=Product::where('pro_status','1')->orderBy('pro_views','DESC')->limit(8)->get();
         $trendy=Product::where('pro_status','1')->where('pro_trendy','1')->latest('id')->limit(8)->get();
         $categoryItem = Category::where('cat_status','1')->latest('id')->get();
+        $mensCatProduct = Category::with('products')->where('cat_status','1')->where("cat_title","men's")->first();
+        $womensCatProduct = Category::with('products')->where('cat_status','1')->where("cat_title","women's")->first();
+        $randomCatProduct = Category::with('products')->where('cat_status','1')->inRandomOrder()->where('cat_title','!=',"men's")->where('cat_title','!=',"women's")->first();
         $recentview = Product::where('pro_status','1')->where('pro_views','>=','1')->orderBy('pro_views','DESC')->get();
-        // return $recentview;
-        return view('frontend.index',compact(['banner','featured','popular','trendy','categoryItem','recentview']));
+        $todaydeal = Product::where('pro_status','1')->where('pro_today_deal','1')->latest('id')->get();
+        // return $randomCatProduct;
+        return view('frontend.index',compact(['banner','featured','popular','trendy','categoryItem','recentview','mensCatProduct','womensCatProduct','randomCatProduct','todaydeal']));
     }
 
     // product Views Single
@@ -46,19 +50,19 @@ class HomeController extends Controller
         $categoryone=Category::where('id',$id)->first();
         $subcat = SubCategory::where('subcat_status','1')->where('cat_id',$id)->latest('id')->get();
         $brand = Brand::where('brand_status','1')->latest('id')->get();
-        $products =Product::where('pro_status','1')->where('category_id',$id)->latest('id')->simplePaginate(20);
+        $products =Product::where('pro_status','1')->where('category_id',$id)->latest('id')->simplePaginate(50);
         $ranproducts =Product::where('pro_status','1')->inRandomOrder()->limit('10')->latest('id')->get();
         // return $products;
-        return view('frontend.category_shop',compact(['categoryone','subcat','brand','products','ranproducts']));
+        return view('frontend.product.category_shop',compact(['categoryone','subcat','brand','products','ranproducts']));
     }
 
     public function subCategoryProduct($id){
-        $subcat=SubCategory::where('id',$id)->first();
+        $subcat=SubCategory::with('category')->where('id',$id)->first();
         $childcat = ChildCategory::where('child_cat_status','1')->where('subcat_id',$id)->latest('id')->get();
         $brand = Brand::where('brand_status','1')->latest('id')->get();
-        $products =Product::where('pro_status','1')->where('sub_category_id',$id)->latest('id')->simplePaginate(20);
+        $products =Product::where('pro_status','1')->where('sub_category_id',$id)->latest('id')->simplePaginate(50);
         $ranproducts =Product::where('pro_status','1')->inRandomOrder()->limit('10')->latest('id')->get();
-        return view('frontend.subcategory_shop',compact(['childcat','subcat','brand','products','ranproducts']));
+        return view('frontend.product.subcategory_shop',compact(['childcat','subcat','brand','products','ranproducts']));
     }
 
 }

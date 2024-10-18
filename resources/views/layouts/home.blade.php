@@ -40,7 +40,30 @@
 </head>
 
 <body>
-
+    <!-- sweet alert notification -->
+    @if(Session::has('success'))
+        <script type="text/javascript">
+            swal({
+                title: "Success!",
+                text: "{{ Session::get('success') }}",
+                icon: "success",
+                button: "OK",
+                timer: 5000,
+            });
+        </script>
+    @endif
+    @if(Session::has('error'))
+        <script type="text/javascript">
+            swal({
+                title: "Opps!",
+                text: "{{ Session::get('error') }}",
+                icon: "error",
+                button: "OK",
+                timer: 5000,
+            });
+        </script>
+    @endif
+    <!-- sweet alert notification -->
     <div class="super_container">
         <!-- Header -->
         <header class="header">
@@ -89,7 +112,7 @@
                                             alt=""></div>
                                     @if(Auth::guard('customer')->check())
                                         <div><a
-                                                href="{{ route('customer.profile') }}">{{ Auth::guard('customer')->user()->name }}</a>
+                                                href="{{ route('customer.profile',Auth::guard('customer')->user()->slug) }}">{{ Auth::guard('customer')->user()->name }}</a>
                                         </div>
                                         <a href="{{ route('customer.logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -118,7 +141,7 @@
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
-                                <div class="logo"><a href="{{ route('.') }}">Style & Gadgets</a></div>
+                                <div class="logo"><a href="{{ route('.') }}">S&G</a></div>
                             </div>
                         </div>
                         <!-- Search -->
@@ -167,7 +190,8 @@
                                         @endphp
                                     @endif
                                     <div class="wishlist_content">
-                                        <div class="wishlist_text"><a href="{{route('wishlist')}}">Wishlist</a></div>
+                                        <div class="wishlist_text"><a
+                                                href="{{ route('wishlist') }}">Wishlist</a></div>
                                         @if(Auth::guard('customer')->check())
                                             <div class="wishlist_count">{{ $wishlist }}</div>
                                         @else
@@ -178,7 +202,7 @@
                                 <!-- Cart -->
                                 @if(Auth::guard('customer')->check())
                                     @php
-                                            
+
                                     @endphp
                                 @endif
                                 <div class="cart">
@@ -267,9 +291,8 @@
                         <div class="footer_column">
                             <div class="footer_title">Customer Care</div>
                             <ul class="footer_list">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Order Tracking</a></li>
-                                <li><a href="#">Wish List</a></li>
+                                <li><a href="{{route('customer.profile',Auth::guard('customer')->user()->slug)}}">My Account</a></li>
+                                <li><a href="{{route('wishlist')}}">Wish List</a></li>
                                 <li><a href="#">Customer Services</a></li>
                                 <li><a href="#">Returns / Exchange</a></li>
                                 <li><a href="#">FAQs</a></li>

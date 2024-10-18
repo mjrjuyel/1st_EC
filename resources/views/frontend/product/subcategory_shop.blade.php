@@ -13,7 +13,7 @@
     </div>
     <div class="home_overlay"></div>
     <div class="home_content d-flex flex-column align-items-center justify-content-center">
-        <h2 class="home_title">{{ $categoryone->cat_title }}</h2>
+        <h2 class="home_title">{{ $subcat->subcat_title }}</h2>
     </div>
 </div>
 
@@ -52,12 +52,16 @@
                 <!-- Shop Sidebar -->
                 <div class="shop_sidebar">
                     <div class="sidebar_section">
-                        <div class="sidebar_title">Categories</div>
-                        <a href="#">{{ $categoryone->cat_title }}</a>
+                        <div class="sidebar_title">ChildCategories</div>
                         <ul class="sidebar_categories">
-                            @foreach($subcat as $subcat)
+                                <li>
+                                    <a href="{{ route('category.product',$subcat->category->id) }}">{{ $subcat->category->cat_title }}</a> / <a class="text-primary" href="#">{{ $subcat->subcat_title }}</a>
+                                </li>
+                            
+                        <ul class="sidebar_categories">
+                            @foreach($childcat as $childcat)
                                 <li><a
-                                        href="{{ route('category.subcategory.product',$subcat->id) }}">{{ $subcat->subcat_title }}</a>
+                                        href="{{ route('category.subcategory.product',$subcat->id) }}">{{ $childcat->child_cat_title }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -162,26 +166,15 @@
                                             <li class="item_mark item_discount">New</li>
                                         @endif
                                     </ul>
+
+
                                 </div>
                             </div>
                         @endforeach
-
                         <!-- Product Item -->
-
-
                     </div>
-
+                    {{ $products->links() }}
                     <!-- Shop Page Navigation -->
-
-                    <div class="shop_page_nav d-flex flex-row">
-                        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i
-                                class="ri-arrow-left-circle-line"></i></div>
-                        <ul class="page_nav d-flex flex-row">
-                            {{ $products->links() }}
-                        </ul>
-                        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i
-                                class="ri-arrow-right-circle-line"></i></i></div>
-                    </div>
 
                 </div>
 
@@ -197,7 +190,7 @@
         <div class="row">
             <div class="col">
                 <div class="viewed_title_container">
-                    <h3 class="viewed_title">Recomended For You</h3>
+                    <h3 class="viewed_title">Recently Viewed</h3>
                     <div class="viewed_nav_container">
                         <div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
                         <div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -242,6 +235,8 @@
                                 </ul>
                             </div>
                         @endforeach
+                        <!-- Recently Viewed Item -->
+                        
                     </div>
 
                 </div>

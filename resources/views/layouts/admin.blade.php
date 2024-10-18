@@ -32,24 +32,20 @@
         <div class="leftside-menu">
             <!-- LOGO -->
             <a href="{{ route('dashboard') }}" class="logo text-center logo-light">
-                <span class="logo-lg">
-                    <img src="{{ asset('contents/admin') }}/assets/images/logo.png" alt=""
-                        height="16">
+                <span class="logo-lg text-light">
+                    S&G
                 </span>
-                <span class="logo-sm">
-                    <img src="{{ asset('contents/admin') }}/assets/images/logo_sm.png" alt=""
-                        height="16">
+                <span class="logo-sm text-light">
+                    S&G
                 </span>
             </a>
             <!-- LOGO -->
             <a href="{{ route('dashboard') }}" class="logo text-center logo-dark">
-                <span class="logo-lg">
-                    <img src="{{ asset('contents/admin') }}/assets/images/logo-dark.png" alt=""
-                        height="16">
+                <span class="logo-lg text-light">
+                    S&G
                 </span>
-                <span class="logo-sm">
-                    <img src="{{ asset('contents/admin') }}/assets/images/logo_sm_dark.png" alt=""
-                        height="16">
+                <span class="logo-sm text-light">
+                    S&G
                 </span>
             </a>
             <div class="h-100" id="leftside-menu-container" data-simplebar>
@@ -127,16 +123,6 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('dashboard.product') }}">All Product</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('dashboard.childcategory') }}">Child
-                                        Category</a>
-                                </li>
-                                <li class="side-nav-item">
-                                    <a href="{{ route('dashboard.brand') }}" class="side-nav-link">
-                                        <i class="uil-folder-plus"></i>
-                                        <span> Brand </span>
-                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -262,7 +248,7 @@
                                     <a href="{{ route('dashboard.setting.smtp') }}"> SMTP Setting</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('dashboard.setting.seo') }}"> Payment
+                                    <a href="{{ route('dashboard.setting.payment_gateway') }}"> Payment
                                         Gateway</a>
                                 </li>
                             </ul>

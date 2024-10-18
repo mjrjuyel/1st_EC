@@ -27,6 +27,7 @@ class RegisterController extends Controller
         $insert=Customer::create([
             'name' => $request->name,
             'email' => $request->email,
+            'slug' => $request->name.'-'.uniqId(),
             'password' => Hash::make($request->password),
             'created_at'=>carbon::now()
         ]);

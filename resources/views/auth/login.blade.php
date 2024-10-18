@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<!-- Mirrored from coderthemes.com/hyper/saas/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Jun 2022 10:15:03 GMT -->
-
 <head>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login | Juyel </title>
+    <title>Login | Dashboard </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('contents/admin')}}/assets//images/favicon.ico">
-
     <!-- App css -->
     <link href="{{asset('contents/admin')}}/assets//css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="{{asset('contents/admin')}}/assets//css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
@@ -37,7 +34,7 @@
 
                             <div class="text-center w-75 m-auto">
                                 <h4 class="text-dark-50 text-center pb-0 fw-bold">Sign In</h4>
-                                <p class="text-muted mb-4">Enter your email address and password to access admin panel.
+                                <p class="text-muted mb-4">Enter your email address and password to access Admin Panel.
                                 </p>
                             </div>
                             <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -79,7 +76,6 @@
                         </div> <!-- end card-body -->
                     </div>
                     <!-- end card -->
-
                     <div class="row mt-3">
                         <div class="col-12 text-center">
                             <p class="text-muted">Don't have an account? <a href="{{route('register')}}"
@@ -100,7 +96,7 @@
         2018 - <script>
             document.write(new Date().getFullYear())
 
-        </script> © Hyper - Coderthemes.com
+        </script> ©
     </footer>
 
     <!-- bundle -->
@@ -108,7 +104,4 @@
     <script src="{{asset('contents/admin')}}/assets//js/app.min.js"></script>
 
 </body>
-
-<!-- Mirrored from coderthemes.com/hyper/saas/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Jun 2022 10:15:03 GMT -->
-
 </html>

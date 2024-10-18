@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="paymentOption"
-                                            id="exampleRadios2" value="SSL_Commerze">
+                                            id="exampleRadios2" value="DigitalPay">
                                         <label class="form-check-label" for="exampleRadios2">
                                             SSL Commerze
                                         </label>
@@ -190,10 +190,6 @@
                             <div class="order_total_title">Total:</div>
                             <div class="order_total_amount">${{ Cart::total() }}</div>
                         @endif
-                    </div>
-                    <div class="cart_buttons">
-                        <button type="button" class="button cart_button_clear destroy">Remove all</button>
-                        <button type="button" class="button cart_button_checkout">Add to Cart</button>
                     </div>
                 </div>
             </div>

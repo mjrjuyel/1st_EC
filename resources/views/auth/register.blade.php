@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Register | Juyel </title>
+        <title>Register | Dashboard </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -34,7 +34,7 @@
                         </div>
 
                         <!-- title-->
-                        <h4 class="mt-0">Free Sign Up</h4>
+                        <h4 class="mt-0">Its For Admin Users DashBoard</h4>
                         <p class="text-muted mb-4">Don't have an account? Create your account, it takes less than a minute</p>
 
                         <!-- form -->
@@ -100,7 +100,7 @@
 
                         <!-- Footer-->
                         <footer class="footer footer-alt">
-                            <p class="text-muted">Already have account? <a href="pages-login-2.html" class="text-muted ms-1"><b>Log In</b></a></p>
+                            <p class="text-muted">Already have account? <a href="{{route('login')}}" class="text-muted ms-1"><b>Log In</b></a></p>
                         </footer>
 
                     </div> <!-- end .card-body -->
@@ -111,11 +111,11 @@
             <!-- Auth fluid right content -->
             <div class="auth-fluid-right text-center">
                 <div class="auth-user-testimonial">
-                    <h2 class="mb-3">I love the color!</h2>
-                    <p class="lead"><i class="mdi mdi-format-quote-open"></i> It's a elegent templete. I love it very much! . <i class="mdi mdi-format-quote-close"></i>
+                    <h2 class="mb-3">I will love the Admin Panel!</h2>
+                    <p class="lead"><i class="mdi mdi-format-quote-open"></i><i class="mdi mdi-format-quote-close"></i>
                     </p>
                     <p>
-                        - Hyper Admin User
+                        - S&G Admin User
                     </p>
                 </div> <!-- end auth-user-testimonial-->
             </div>
@@ -128,7 +128,4 @@
         <script src="{{asset('contents/admin')}}/assets//js/app.min.js"></script>
 
     </body>
-
-
-<!-- Mirrored from coderthemes.com/hyper/saas/pages-register-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Jun 2022 10:15:03 GMT -->
 </html>

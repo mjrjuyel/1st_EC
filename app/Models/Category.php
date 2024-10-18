@@ -28,6 +28,10 @@ class Category extends Model
     public function childcategory(){
         return $this->hasMany(ChildCategory::class,'cat_id','id');
     }
+
+    public function products(){
+        return $this->hasMany(Product::class,'category_id','id');
+    }
     
     use HasFactory;
 }
