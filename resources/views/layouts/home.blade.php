@@ -114,7 +114,7 @@
                                         <div><a
                                                 href="{{ route('customer.profile',Auth::guard('customer')->user()->slug) }}">{{ Auth::guard('customer')->user()->name }}</a>
                                         </div>
-                                        <a href="{{ route('customer.logout') }}"
+                                        <a href="{{ route('customer.logout') }} "class="text-danger"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
@@ -206,6 +206,7 @@
                                     @endphp
                                 @endif
                                 <div class="cart">
+                                    <a href="{{route('allcart')}}">
                                     <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                         <div class="cart_icon">
                                             <img src="{{ asset('contents/frontend') }}/assets/images/cart.png"
@@ -218,6 +219,7 @@
                                             <div class="cart_price">${{ Cart::subtotal() }}</div>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -291,7 +293,11 @@
                         <div class="footer_column">
                             <div class="footer_title">Customer Care</div>
                             <ul class="footer_list">
+                                @if(Auth::guard('customer')->check())
                                 <li><a href="{{route('customer.profile',Auth::guard('customer')->user()->slug)}}">My Account</a></li>
+                                @else
+                                <li><a href="{{route('customer.login')}}">Login</a></li>
+                                @endif
                                 <li><a href="{{route('wishlist')}}">Wish List</a></li>
                                 <li><a href="#">Customer Services</a></li>
                                 <li><a href="#">Returns / Exchange</a></li>

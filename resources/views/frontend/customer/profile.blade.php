@@ -35,7 +35,6 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="cart_container">
-                    <div class="cart_title">Checkout Product</div>
                     <div class="card p-2">
                         <div class=" card-header text-center">
                             <h3 class="text-primary">Welcome, {{ $customer->name }}</h3>

@@ -13,5 +13,9 @@ class Order extends Model
         'created_at'=>'datetime',
         'updated_at'=>'datetime',
     ];
+
+    public function orderDetail(){
+        return $this->hasMany(OrderDetail::class,'order_id');
+    }
     use HasFactory;
 }

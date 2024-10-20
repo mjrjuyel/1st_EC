@@ -53,22 +53,22 @@
                 <ul class="side-nav">
                     <li class="side-nav-title side-nav-item">Navigation</li>
                     <li class="side-nav-item">
-                        <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
-                            aria-controls="sidebarDashboards" class="side-nav-link">
+                        <a href="{{route('dashboard')}}"  class="side-nav-link">
                             <i class="uil-home-alt"></i>
-                            <span class="badge bg-success float-end">4</span>
                             <span> Dashboards </span>
                         </a>
-                        <div class="collapse" id="sidebarDashboards">
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#orderSideBar" aria-expanded="false"
+                            aria-controls="orderSideBar" class="side-nav-link">
+                            <i class="uil-shop"></i>
+                            <span> Order Product </span>
+                        </a>
+                        <div class="collapse" id="orderSideBar">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="dashboard-analytics.html">Analytics</a>
-                                </li>
-                                <li>
-                                    <a href="index.html">Ecommerce</a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-projects.html">Projects</a>
+                                    <a href="{{route('dashboard.order')}}">Order All</a>
                                 </li>
                                 <li>
                                     <a href="dashboard-wallet.html">
@@ -647,7 +647,7 @@
                                 <script>
                                     document.write(new Date().getFullYear())
 
-                                </script> © Hyper - Coderthemes.com
+                                </script>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-md-block">

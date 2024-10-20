@@ -297,7 +297,7 @@ class ProductController extends Controller
             'brand_id'=>$request['brand'],
             'category_id'=>$cat->cat_id,
             'sub_category_id'=>$request['category'],
-            'child_cat_id'=>$request['childcategory'],
+            'child_cat_id'=>$request['childcategory'] ?? null,
             'pro_unit'=>$request['unit'],
             'pro_tags'=>$request['tags'],
             'pro_description'=>$request['description'],
