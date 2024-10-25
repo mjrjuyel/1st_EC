@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('pro_unit')->nullable();
             $table->string('pro_tags',50)->nullable();
             $table->text('pro_description')->nullable();
-            $table->string('pro_video',50)->nullable();
+            $table->text('pro_video',)->nullable();
             $table->string('pro_color',50)->nullable();
             $table->string('pro_size',50)->nullable();
             $table->integer('pro_purchase_price')->nullable();

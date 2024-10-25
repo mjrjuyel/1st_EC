@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->string('c_name',20)->nullable();
-            $table->string('c_email',25)->nullable();
+            $table->string('c_email',50)->nullable();
             $table->text('c_address')->nullable();
             $table->string('c_zipcode',10)->nullable();
             $table->string('c_country',20)->nullable();

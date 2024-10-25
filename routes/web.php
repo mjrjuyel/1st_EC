@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerProfileController;
 use App\Http\Controllers\Frontend\OrderTrackController;
+use App\Http\Controllers\Frontend\AboutusController;
 
 // Customer Auth Controller
 use App\Http\Controllers\CustomerAuth\LoginController;
@@ -28,6 +29,8 @@ use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ManageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -62,15 +65,12 @@ Route::post('/customer/register/insert',[RegisterController::class,'register'])-
 Route::middleware('auth.customer')->group(function(){
     // ===== logout Route
     Route::post('/customer/logout',[LoginController::class,'logout'])->name('customer.logout');
-    //     Customer profile Routes
-    Route::get('/customer',function(){
-        return "this is profile";
-    })->name('customer');
+
+    //    Customer profile Routes
     Route::get('/customer/profile/{slug}',[CustomerProfileController::class,'index'])->name('customer.profile');
 
     // Order track
     Route::get('/order/track/',[OrderTrackController::class,'track'])->name('order.track');
-
     // ======= wish list 
     Route::get('product/wishlist/{id}',[ReviewController::class,'wishlist'])->name('product.wishlist');
     Route::get('wishlist',[ReviewController::class,'wishlistAll'])->name('wishlist');
@@ -108,6 +108,16 @@ Route::middleware('auth.customer')->group(function(){
         // $color = $thumbnail->options->color;
         return response()->json(Cart::content());
     }); 
+
+    // About Us Controller
+    Route::get('aboutus', [AboutusController::class, 'index'])->name('aboutus');
+    Route::post('basic/update', [AboutusController::class, 'basic_update']);
+    // Route::get('contact', [AboutusController::class, 'contact']);
+    // Route::post('contact/update', [AboutusController::class, 'contact_update']);
+    // Route::get('social', [AboutusController::class, 'social']);
+    // Route::post('social/update', [AboutusController::class, 'social_update']);
+    // Route::get('copyright', [AboutusController::class, 'copyright']);
+    // Route::post('copyright/update', [AboutusController::class, 'copyright_update']);
 });
 
 // Route::prefix('customer')->name('customer.')->group(function () {
@@ -127,10 +137,33 @@ Route::middleware('auth.customer')->group(function(){
 // ---------------------============= front end controller =========
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')->middleware(['auth','is_admin']);
+Route::get('/dashboard/customer',[DashboardController::class,'customerAll'])->name('dashboard.customer')->middleware(['auth','is_admin']);
 // adimn controller 
 Route::get('/dashboard/admin',[UserController::class,'index'])->name('dashboard.admin')->middleware(['auth','is_admin']);
 
+
 Route::middleware(['auth','is_admin'])->group(function(){
+
+    // Basic Detail For a Website
+    Route::get('dashboard/manage/basic', [ManageController::class, 'basic']);
+    Route::post('dashboard/manage/basic/update', [ManageController::class, 'basic_update']);
+    Route::get('dashboard/manage/contact', [ManageController::class, 'contact']);
+    Route::post('dashboard/manage/contact/update', [ManageController::class, 'contact_update']);
+    Route::get('dashboard/manage/social', [ManageController::class, 'social']);
+    Route::post('dashboard/manage/social/update', [ManageController::class, 'social_update']);
+    Route::get('dashboard/manage/copyright', [ManageController::class, 'copyright']);
+    Route::post('dashboard/manage/copyright/update', [ManageController::class, 'copyright_update']);
+    
+    // About Us Controller
+    Route::get('dashboard/manage/basic', [AboutusController::class, 'basic']);
+    Route::post('dashboard/manage/basic/update', [AboutusController::class, 'basic_update']);
+    Route::get('dashboard/manage/contact', [AboutusController::class, 'contact']);
+    Route::post('dashboard/manage/contact/update', [AboutusController::class, 'contact_update']);
+    Route::get('dashboard/manage/social', [AboutusController::class, 'social']);
+    Route::post('dashboard/manage/social/update', [AboutusController::class, 'social_update']);
+    Route::get('dashboard/manage/copyright', [AboutusController::class, 'copyright']);
+    Route::post('dashboard/manage/copyright/update', [AboutusController::class, 'copyright_update']);
+
     // Category Controller 
     Route::get('/dashboard/category',[CategoryController::class, 'index'])->name('dashboard.category');
     Route::post('/dashboard/category/insert',[CategoryController::class, 'store'])->name('dashboard.category.store');

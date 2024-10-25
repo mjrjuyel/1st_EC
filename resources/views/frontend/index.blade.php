@@ -36,7 +36,7 @@
                     alt="helo"></div>
             <div class="col-lg-5 offset-lg-4 fill_height">
                 <div class="banner_content">
-                    <h1 class="banner_text">new era of smartphones</h1>
+                    <h1 class="banner_text">{{$banner->pro_title}}</h1>
                     @if($banner->pro_discount_price == null)
                         <div class="banner_price">${{ $banner->pro_selling_price }}</div>
                     @else
@@ -59,7 +59,7 @@
             <div class="col-lg-3 col-md-6 char_col">
                 <div class="char_item d-flex flex-row align-items-center justify-content-start">
                     <div class="char_icon"><img
-                            src="{{ asset('contents/admin') }}/assets/images/char_1.png" alt="">
+                            src="{{ asset('contents/frontend') }}/assets/images/char_1.png" alt="">
                     </div>
                     <div class="char_content">
                         <div class="char_title">Free Delivery</div>
@@ -181,9 +181,9 @@
                     </div>
 
                     <div class="deals_slider_nav_container">
-                        <div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i>
+                        <div class="deals_slider_prev deals_slider_nav"><i class="ri-arrow-left-fill ml-auto"></i></i>
                         </div>
-                        <div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i>
+                        <div class="deals_slider_next deals_slider_nav"><i class="ri-arrow-right-fill ml-auto"></i>
                         </div>
                     </div>
                 </div>
@@ -526,7 +526,7 @@
                                                 class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
                                                 <div
                                                     class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                    <img src="{{asset('uploads/admin/product/'.$product->pro_thumbnail) }}" alt=""></div>
+                                                    <img src="{{asset('uploads/admin/product/'.$product->pro_thumbnail) }}" style="width:80%;" alt=""></div>
                                                        
                                                 <div class="product_content">
                                                 @if($product->pro_discount_price == null)
@@ -621,7 +621,7 @@
                                                 class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
                                                 <div
                                                     class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                    <img src="{{ asset('uploads/admin/product/'.$product->pro_thumbnail) }}"
+                                                    <img src="{{ asset('uploads/admin/product/'.$product->pro_thumbnail) }}" class="" style="width:80%;"
                                                         alt=""></div>
                                                        
                                                 <div class="product_content">

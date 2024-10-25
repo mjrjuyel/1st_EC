@@ -107,7 +107,6 @@ class ProductController extends Controller
             'tags'=>'required',
             'thumbnail'=>'required',
             'pic2'=>'required',
-            'pic3'=>'required',
             'description'=>'required',
         ]);
 

@@ -251,6 +251,13 @@
                                     <a href="{{ route('dashboard.setting.payment_gateway') }}"> Payment
                                         Gateway</a>
                                 </li>
+                                <li>
+                                    <a href="{{ url('dashboard/manage/social') }}"> Social Media</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ url('dashboard/manage/contact') }}">Contact Information</a>
+                                </li>
                             </ul>
                         </div>
                     </li>

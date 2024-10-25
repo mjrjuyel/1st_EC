@@ -18,7 +18,7 @@ use DB;
 class CategoryController extends Controller
 {
     public function index(){
-        $cat = Category::with(['subcategory','childcategory'])->where('cat_status','1')->latest('id')->get();
+        $cat = Category::with(['subcategory','childcategory'])->where('cat_status','1')->latest('id')->simplePaginate(5);
         return view('admin.category.all',compact('cat'));
     }
     public function store(Request $request){

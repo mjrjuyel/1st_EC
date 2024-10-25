@@ -51,11 +51,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <div class="col-sm-5">
-                            <a href="#" class="btn btn-primary mb-2" data-bs-toggle="modal"
-                                data-bs-target="#staticStoreModal"><i class="mdi mdi-plus-circle me-2"></i> Add
-                                Category</a>
-                        </div>
                         <div class="col-sm-7">
                             <div class="text-sm-end">
                                 <button type="button" class="btn btn-success mb-2 me-1"><i
@@ -76,15 +71,15 @@
                                             <label class="form-check-label" for="customCheck1">&nbsp;</label>
                                         </div>
                                     </th>
-                                    <th class="text-center">Category</th>
-                                    <th class="text-center">Category Pic</th>
-                                    <th class="text-center">Sub Category</th>
-                                    <th class="text-center">Child Category</th>
+                                    <th class="text-center">Admin</th>
+                                    <th class="text-center">Admin Pic</th>
+                                    <th class="text-center">Admin Email</th>
+                                    <th class="text-center">Admin Phone</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($cat as $data)
+                                @foreach($allAdmin as $data)
                                     <tr>
                                         <td>
                                             <div class="form-check">
@@ -93,29 +88,21 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {{ $data->cat_title }}
+                                            {{ $data->name }}
                                         </td>
 
                                         <td>
-                                            @if($data->cat_pic != '')
-                                                <img src="{{ asset('uploads/admin/category/'.$data->cat_pic) }}"
+                                            @if($data->pic != '')
+                                                <img src="{{ asset('uploads/admin/category/'.$data->pic) }}"
                                                     class="img-fluid" alt="" style="width:200px; object-fit:cover;">
                                             @endif
                                         </td>
 
                                         <td>
-                                            @foreach($data->subcategory as $subcat)
-                                                <button
-                                                    class="btn bg-primary text-success">{{ optional($subcat)->subcat_title }}</button>
-                                            @endforeach
-
+                                            {{$data->email}}
                                         </td>
                                         <td>
-                                            @foreach($data->childcategory as $child)
-                                                <button
-                                                    class="btn bg-primary text-success">{{ optional($child)->child_cat_title }}</button>
-                                            @endforeach
-
+                                            {{$data->phone}}
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
@@ -131,16 +118,6 @@
                                                     <li><a class="dropdown-item"
                                                             href="{{ url('dashboard/category/edit/'.$data->cat_slug) }}"><i
                                                                 class="uil-edit"></i>Edit</a></li>
-                                                    <li>
-                                                        <form
-                                                            action="{{ url('/dashboard/category/delete/'.$data->id) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="dropdown-item  text-danger" type="sumbit"><i
-                                                                    class="uil-trash-alt"></i>Delete</button>
-                                                        </form>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -170,30 +147,6 @@
                 <hr>
                 <form class="ps-3 pe-3" action="{{ route('dashboard.category.store') }}" method="post"
                     enctype="multipart/form-data">
-                    @if(Session::has('success'))
-                        <script type="text/javascript">
-                            swal({
-                                title: "Success!",
-                                text: "{{ Session::get('success') }}",
-                                icon: "success",
-                                button: "OK",
-                                timer: 5000,
-                            });
-
-                        </script>
-                    @endif
-                    @if(Session::has('error'))
-                        <script type="text/javascript">
-                            swal({
-                                title: "Opps!",
-                                text: "{{ Session::get('error') }}",
-                                icon: "error",
-                                button: "OK",
-                                timer: 5000,
-                            });
-
-                        </script>
-                    @endif
                     @csrf
                     <div class="mb-3">
                         <label for="username" class="form-label">Product Category Title<span class="important">*

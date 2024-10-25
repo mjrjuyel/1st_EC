@@ -10,6 +10,6 @@ class UserController extends Controller
 {
     public function index(){
         $allAdmin = User::all();
-        return view('admin.admin.all',compact('alladmin'));
+        return view('admin.admin.all',compact('allAdmin'));
     }
 }

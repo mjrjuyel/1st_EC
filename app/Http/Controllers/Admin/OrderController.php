@@ -86,6 +86,7 @@ class OrderController extends Controller
         $edit = Order::where('id',$id)->first();
         return view('admin.order.edit',compact('edit'));
     }
+    
     public function update(Request $request){
         $id = $request['id'];
         $request->validate([

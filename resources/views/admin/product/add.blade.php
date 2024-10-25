@@ -60,7 +60,7 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <h3 class="card_header"><i class="fa-solid fa-shirt header_icon"></i>
-                                        </h3>
+                                        Insert Product</h3>
                                     </div>
                                     <div class="col-md-4 text-end"><a
                                             href="{{ route('dashboard.product') }}"

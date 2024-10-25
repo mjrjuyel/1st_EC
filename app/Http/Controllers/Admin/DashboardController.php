@@ -29,4 +29,9 @@ class DashboardController extends Controller
         // return $recentOrder_detail;
         return view('admin.dashboard.index',compact(['adminUser','totalOrder','totalBrand','totalCategory','totalSubcategory','totalProduct','recentOrder_detail','totalWarehouse','totalCustomer']));
     }
+
+    public function customerAll(){
+        $customer = Customer::all();
+        return view('admin.admin.customer',compact('customer'));
+    }
 }

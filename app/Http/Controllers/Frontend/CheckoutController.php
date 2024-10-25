@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mail\NvoiceOrderMail;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderDetail;
 use App\Models\PaymentGatewayBd;
 use Carbon\Carbon;
@@ -111,7 +112,7 @@ class CheckoutController extends Controller
                 $content = Cart::content();
                 // get order id Number
                 $orderId = $order->id;
-
+                
                 // Order Detail Insert 
             foreach($content as $content){
                 $detail = OrderDetail::create([
@@ -119,11 +120,16 @@ class CheckoutController extends Controller
                     'product_id'=>$content->id,
                     'product_name'=>$content->name,
                     'product_price'=>$content->price,
-                    'product_qty'=>$content->qty,
+                    'product_qty'=> $content->qty,
                     'product_color'=>$content->options->color,
                     'product_size'=>$content->options->size,
                     'product_subtotal'=>$content->price * $content->qty,
                     'created_at'=>Carbon::now(),
+                ]);
+
+                $pro_qty = Product::where('id',$content->id)->first();
+                Product::where('id',$content->id)->update([
+                    'pro_stock_quantity' => $pro_qty->pro_stock_quantity - $content->qty,
                 ]);
             }
 
@@ -140,6 +146,7 @@ class CheckoutController extends Controller
                     return redirect()->back();
                 }
         }
+        // Amar PAY METHOD
         elseif($request->paymentOption == 'DigitalPay'){
             $amarpay =PaymentGatewayBd::first();
             if($amarpay->store_id == null){
@@ -160,6 +167,12 @@ class CheckoutController extends Controller
                     $store_id = $amarpay->store_id;
                     $signature_key = $amarpay->store_id; 
                     $curl = curl_init();
+                    if(Session::has('coupon') && Session::get('coupon')['after_discount'] >= 500){
+                        $amount = Session::get('coupon')['after_discount']; 
+                    }
+                    else{
+                        $amount = Cart::total(); 
+                    }
                     curl_setopt_array($curl, array(
                     CURLOPT_URL => $url,
                     CURLOPT_RETURNTRANSFER => true,
@@ -187,7 +200,7 @@ class CheckoutController extends Controller
                         "cus_state": "Dhaka",
                         "cus_postcode": "'.$request->c_zipcode.'",
                         "cus_country": "'.$request->c_country.'",
-                        "cus_phone": "+'.$request->c_phone.'",
+                        "cus_phone": "'.$request->c_phone.'",
                         "type": "json"
                     }',
                     CURLOPT_HTTPHEADER => array(

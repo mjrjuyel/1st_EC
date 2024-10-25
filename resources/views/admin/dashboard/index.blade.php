@@ -13,7 +13,7 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Dashboard User</h5>
                         @if($adminUser->count() > 0)
-                            <a href="#">
+                            <a href="{{route('dashboard.admin')}}">
                                 <h3 class="mt-3 mb-3">{{ $adminUser->count() }}</h3>
                             </a>
                         @else
